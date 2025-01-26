@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPT UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-neutral-dark text-gray-100 h-screen flex flex-col justify-between">
+
+    <!-- Chat Wrapper -->
+    <div class="flex flex-col max-w-3xl mx-auto w-full h-full bg-neutral-light shadow-lg border border-gray-700 rounded-lg">
+  
+      <!-- Header -->
+      <div class="p-4 bg-gray-800 text-gray-200 text-lg font-semibold">
+        Modern Chatbot UI
+      </div>
+  
+      <!-- Chat Messages Section -->
+      <div id="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+  
+        <!-- Bot Message -->
+        <div class="flex items-start space-x-3">
+          <div class="bg-gray-700 text-gray-200 p-4 rounded-xl max-w-sm shadow">
+            Hello! How can I assist you today? 😊
+          </div>
+        </div>
+  
+        <!-- User Message -->
+        <div class="flex justify-end">
+          <div class="bg-gray-500 text-gray-200 p-4 rounded-xl max-w-sm shadow">
+            Hi! Can you help me with Tailwind CSS?
+          </div>
+        </div>
+  
+      </div>
+  
+<!-- Input Section -->
+<form id="chatForm" class="flex items-center p-4 bg-gray-900 border-t border-gray-800 shadow-lg">
+
+    <!-- Input Field -->
+    <div class="relative flex-1">
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Type your message here..."
+        class="w-full p-4 pl-12 pr-4 bg-gray-800 text-gray-200 border border-gray-700 rounded-full placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+      />
+      <!-- Search Icon inside input -->
+      <div class="absolute inset-y-0 left-3 flex items-center">
+        <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l4-4m0 0l4-4m-4 4v12" />
+        </svg>
+      </div>
+    </div>
+  
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="ml-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-200 ease-in-out"
+    >
+      Send
+    </button>
+  
+  </form>
+  
+    </div>
+  
+    <script>
+      // Chat functionality (basic JS)
+      const chatForm = document.getElementById('chatForm');
+      const messageInput = document.getElementById('messageInput');
+      const chatContainer = document.getElementById('chatContainer');
+  
+      chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const userMessage = messageInput.value.trim();
+  
+        if (userMessage) {
+          // Append user's message
+          const userMessageDiv = document.createElement('div');
+          userMessageDiv.className = 'flex justify-end';
+          userMessageDiv.innerHTML = `
+            <div class="bg-gray-500 text-gray-200 p-4 rounded-xl max-w-sm shadow">
+              ${userMessage}
+            </div>
+          `;
+          chatContainer.appendChild(userMessageDiv);
+  
+          // Clear input field
+          messageInput.value = '';
+  
+          // Simulate bot response
+          setTimeout(() => {
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.className = 'flex items-start space-x-3';
+            botMessageDiv.innerHTML = `
+              <div class="bg-gray-700 text-gray-200 p-4 rounded-xl max-w-sm shadow">
+                This is a bot response to: "${userMessage}"
+              </div>
+            `;
+            chatContainer.appendChild(botMessageDiv);
+  
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }, 1000);
+        }
+      });
+    </script>
+  
+  </body>
+</html>
