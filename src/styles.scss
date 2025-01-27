@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+   // src/styles.scss
+   @import 'tailwindcss/base';
+   @import 'tailwindcss/components';
+   @import 'tailwindcss/utilities';
+
+   @layer utilities {
+    .bg-neutral-dark {
+      background-color: #1e1e2f;
+    }
+
+    .bg-neutral-light {
+      background-color: #2b2b3d;
+    }
+
+    .text-neutral-muted {
+      color: #b0b0c3;
+    }
+  }
