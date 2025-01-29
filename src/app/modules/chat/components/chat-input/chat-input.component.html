@@ -1,8 +1,8 @@
    <!-- Input Section -->
-   <form id="chatForm" class="flex items-center p-2 bg-gray-900 border-t border-gray-800 shadow-sm">
+   <form (ngSubmit)="onSubmit()" id="chatForm" class="flex items-center p-2 bg-gray-900 border-t border-gray-800 shadow-sm">
     <!-- Input Field -->
     <div class="relative flex-1">
-        <input id="messageInput" type="text" placeholder="Type..."
+        <input #inputMessaage id="messageInput" type="text" placeholder="Type..."
             class="w-full p-2 pl-8 pr-2 bg-gray-800 text-gray-200 border border-gray-700 rounded-full placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-200 text-xs" />
         <!-- Icon inside input -->
         <div class="absolute inset-y-0 left-2 flex items-center">

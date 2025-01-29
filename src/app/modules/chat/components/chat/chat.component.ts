@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MessageComponent } from '../message/message.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,6 +11,8 @@ import { ChatInputComponent } from '../chat-input/chat-input.component';
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
+
+  constructor(private chatservice:ChatService) {}
   messages: any[] = [
     {
       type: 'received',
@@ -21,14 +24,21 @@ export class ChatComponent {
     }
   ];
 
-  handleSendMessage(messageContent: string) {
+  handleSendMessage(messageContent: any) {
+    console.log("chat cmp :",messageContent);
+
     if (messageContent.trim()) {
       this.messages.push({
         type: 'sent',
         content: messageContent
       });
 
-      // اینجا می‌توانید منطق ارسال پیام به سرور یا پاسخ ربات را اضافه کنید
+      // Send the message to the chat server
+       this.chatservice.sendMessage(messageContent,).subscribe(response => {
+        console.log(response);
+        
+       });
+
     }
   }
 }
