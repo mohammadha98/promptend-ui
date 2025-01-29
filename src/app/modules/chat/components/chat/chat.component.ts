@@ -1,13 +1,13 @@
 import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MessageComponent } from '../message/message.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 
 @Component({
   selector: 'app-chat',
-  imports: [NgFor,MessageComponent,ChatInputComponent],
+  imports: [ChatInputComponent, MessageComponent],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
   messages: any[] = [

@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { ChatComponent } from './modules/chat/components/chat/chat.component';
-import { SidebarComponent } from './modules/chat/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [ChatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
