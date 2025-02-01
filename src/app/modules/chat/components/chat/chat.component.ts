@@ -3,10 +3,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { MessageComponent } from '../message/message.component';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatService } from '../../services/chat.service';
+import { ChatSidebarComponent } from "../chat-sidebar/sidebar.component";
+import { SidebarComponent } from '../../../../shared/sidebar/sidebar.component';
+import { ChatListsComponent } from "../chat-lists/chat-lists.component";
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatInputComponent, MessageComponent],
+  imports: [ChatInputComponent, MessageComponent, NgFor, ChatSidebarComponent, SidebarComponent, ChatListsComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })

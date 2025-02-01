@@ -1,12 +1,12 @@
-   <!-- Input Section -->
-   <form (ngSubmit)="onSubmit()" id="chatForm" class="flex items-center p-2 bg-gray-900 border-t border-gray-800 shadow-sm">
+<!-- Input Section -->
+<form (ngSubmit)="onSubmit()" id="chatForm" class="flex items-center p-4 bg-gray-900 border-t border-gray-800 shadow-sm">
     <!-- Input Field -->
     <div class="relative flex-1">
         <input #inputMessaage id="messageInput" type="text" placeholder="Type..."
-            class="w-full p-2 pl-8 pr-2 bg-gray-800 text-gray-200 border border-gray-700 rounded-full placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all duration-200 text-xs" />
+            class="w-full p-3 pl-10 pr-3 bg-gray-800 text-gray-200 border border-gray-700 rounded-full placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-sm" />
         <!-- Icon inside input -->
-        <div class="absolute inset-y-0 left-2 flex items-center">
-            <svg class="w-3 h-3 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+        <div class="absolute inset-y-0 left-3 flex items-center">
+            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                     d="M8 16l4-4m0 0l4-4m-4 4v12" />
@@ -16,7 +16,7 @@
 
     <!-- Submit Button -->
     <button type="submit"
-        class="ml-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-3 py-1 rounded-full font-medium shadow-sm hover:shadow-md transform hover:scale-105 transition-transform duration-200 ease-in-out text-xs">
+        class="ml-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full font-medium shadow-sm hover:shadow-md transform hover:scale-105 transition-transform duration-200 ease-in-out text-sm">
         Send
     </button>
 </form>
