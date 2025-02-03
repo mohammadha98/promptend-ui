@@ -8,8 +8,8 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class ChatSidebarComponent {
-  isModelSectionExpanded: boolean = true;
-  isRebuildSectionExpanded: boolean = true;
+  isModelSectionExpanded: boolean = false;
+  isRebuildSectionExpanded: boolean = false;
 
   toggleModelSection() {
     this.isModelSectionExpanded = !this.isModelSectionExpanded;

@@ -6,18 +6,17 @@ import { ChatListsComponent } from "../chat-lists/chat-lists.component";
 import { MessageListComponent } from '../message-list/message-list.component';
 import { ChatHeaderComponent } from "../chat-header/chat-header.component";
 import { MessageModel } from '../../models/message.model';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatInputComponent,NgClass, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, ChatListsComponent, ChatHeaderComponent],
+  imports: [ChatInputComponent, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, ChatListsComponent, ChatHeaderComponent],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
- @Input() isSidebarVisible: boolean = true;
+  @Input() isSidebarVisible: boolean = true;
 
-  constructor(private chatservice:ChatService) {}
+  constructor(private chatservice: ChatService) { }
   messages: MessageModel[] = [
     { messageType: 'user', content: 'Hello!', userTokens: 10, model: 'GPT-3' },
     { messageType: 'user', content: 'Hello!', userTokens: 10, model: 'GPT-3' },
@@ -31,12 +30,9 @@ export class ChatComponent {
 
   handleSendMessage(messageContent: string) {
     this.messages.push({ messageType: 'user', content: messageContent, userTokens: 10, model: 'GPT-3' });
-    // Add logic to handle AI response if needed
   }
-  
+
   toggleSidebar($event: boolean) {
-    console.log('toggleSidebar', $event);
-    
     this.isSidebarVisible = $event;
   }
 }
