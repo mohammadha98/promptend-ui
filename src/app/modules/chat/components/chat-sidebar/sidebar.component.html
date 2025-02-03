@@ -1,26 +1,22 @@
-
-<!-- Toolbox Sidebar -->
-
-
-<div class="sidebar-content" >
+<div class="sidebar-content">
   <div class="space-y-4">
 
-    <div class="group px-1 pt-1" data-state="open">
+    <div class="group px-1 pt-1">
       <div class="p-4 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
-        aria-expanded="true" aria-controls="model-section">
+        [attr.aria-expanded]="isModelSectionExpanded" [attr.aria-controls]="'model-section'"
+        (click)="toggleModelSection()">
         <div class="flex items-center justify-between gap-2">
           <h3 class="text-sm font-semibold">AI Model</h3>
-          <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-gray-400 transform transition-transform"
+            [ngClass]="{'rotate-180': isModelSectionExpanded}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
           </svg>
         </div>
       </div>
-      <div id="model-section" class=" pb-4 pt-2 space-y-2" data-state="open">
+      <div id="model-section" class="overflow-hidden transition-all duration-300 ease-in-out"
+        [ngClass]="{'max-h-0 opacity-0': !isModelSectionExpanded, 'max-h-screen opacity-100': isModelSectionExpanded}">
         <!-- Model Selection Section -->
         <div class="p-4 bg-gray-800 rounded-xl">
-
-
           <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
             aria-label="ChatGPT model">
             <input type="radio" name="llm-model" class="form-radio" checked>
@@ -62,44 +58,44 @@
             </svg>
             Custom Model...
           </button>
-
         </div>
       </div>
     </div>
 
     <!-- Rebuild Modes Section -->
-    <div class="group px-1" data-state="open">
+    <div class="group px-1">
       <div class="p-4 bg-gray-800 rounded-t-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
-        aria-expanded="true" aria-controls="rebuild-section">
+        [attr.aria-expanded]="isRebuildSectionExpanded" [attr.aria-controls]="'rebuild-section'"
+        (click)="toggleRebuildSection()">
         <div class="flex items-center justify-between gap-2">
           <h3 class="text-sm font-semibold">Rebuild Modes</h3>
-          <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-gray-400 transform transition-transform"
+            [ngClass]="{'rotate-180': isRebuildSectionExpanded}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
           </svg>
         </div>
       </div>
-      <div class="p-4 bg-gray-800 rounded-b-xl">
-
-        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-          <input type="radio" name="rebuild-mode" class="form-radio" checked>
-          <span class="text-sm">Manual Edit</span>
-        </label>
-        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-          <input type="radio" name="rebuild-mode" class="form-radio">
-          <span class="text-sm">Auto-Optimize</span>
-          <span class="text-xs px-1.5 py-0.5 bg-blue-500 rounded-md">Beta</span>
-        </label>
-        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-          <input type="radio" name="rebuild-mode" class="form-radio">
-          <span class="text-sm">Branch Preview</span>
-        </label>
-
+      <div id="rebuild-section" class="overflow-hidden transition-all duration-300 ease-in-out"
+        [ngClass]="{'max-h-0 opacity-0': !isRebuildSectionExpanded, 'max-h-screen opacity-100': isRebuildSectionExpanded}">
+        <div class="p-4 bg-gray-800 rounded-b-xl">
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio" checked>
+            <span class="text-sm">Manual Edit</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio">
+            <span class="text-sm">Auto-Optimize</span>
+            <span class="text-xs px-1.5 py-0.5 bg-blue-500 rounded-md">Beta</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio">
+            <span class="text-sm">Branch Preview</span>
+          </label>
+        </div>
       </div>
     </div>
 
     <div class="group px-1">
-
       <div class="p-4 bg-gray-800 rounded-xl">
         <h3 class="text-sm font-semibold mb-2">Optimization Settings</h3>
         <div class="space-y-3">
@@ -128,4 +124,3 @@
 
   </div>
 </div>
-
