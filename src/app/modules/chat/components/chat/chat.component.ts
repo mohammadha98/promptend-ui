@@ -1,30 +1,42 @@
-import { NgFor } from '@angular/common';
-import { Component, ViewEncapsulation } from '@angular/core';
-import { MessageComponent } from '../message/message.component';
+import { Component, Input } from '@angular/core';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { ChatService } from '../../services/chat.service';
 import { ChatSidebarComponent } from "../chat-sidebar/sidebar.component";
-import { SidebarComponent } from '../../../../shared/sidebar/sidebar.component';
 import { ChatListsComponent } from "../chat-lists/chat-lists.component";
 import { MessageListComponent } from '../message-list/message-list.component';
 import { ChatHeaderComponent } from "../chat-header/chat-header.component";
+import { MessageModel } from '../../models/message.model';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatInputComponent, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, SidebarComponent, ChatListsComponent, ChatHeaderComponent],
+  imports: [ChatInputComponent,NgClass, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, ChatListsComponent, ChatHeaderComponent],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss',
+  styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
+ @Input() isSidebarVisible: boolean = true;
 
   constructor(private chatservice:ChatService) {}
-  messages = [
-    { isUserMessage: true, userMessage: 'Hello!', userTokens: 10, userModel: 'GPT-3', aiResponse: '' },
-    { isUserMessage: false, userMessage: '', userTokens: 0, userModel: '', aiResponse: 'Hi there!' }
+  messages: MessageModel[] = [
+    { messageType: 'user', content: 'Hello!', userTokens: 10, model: 'GPT-3' },
+    { messageType: 'user', content: 'Hello!', userTokens: 10, model: 'GPT-3' },
+    { messageType: 'ai', content: 'Hi there!', userTokens: 0, model: 'GPT-3' },
+    { messageType: 'ai', content: 'Hi there!', userTokens: 0, model: 'GPT-3' },
+    { messageType: 'user', content: 'How are you?', userTokens: 10, model: 'GPT-3' },
+    { messageType: 'ai', content: 'I am just a program, but I am functioning as expected!', userTokens: 0, model: 'GPT-3' },
+    { messageType: 'user', content: 'What can you do?', userTokens: 10, model: 'GPT-3' },
+    { messageType: 'ai', content: 'I can assist with various tasks, such as answering questions and providing information.', userTokens: 0, model: 'GPT-3' }
   ];
 
   handleSendMessage(messageContent: string) {
-    this.messages.push({ isUserMessage: true, userMessage: messageContent, userTokens: 10, userModel: 'GPT-3', aiResponse: '' });
+    this.messages.push({ messageType: 'user', content: messageContent, userTokens: 10, model: 'GPT-3' });
     // Add logic to handle AI response if needed
+  }
+  
+  toggleSidebar($event: boolean) {
+    console.log('toggleSidebar', $event);
+    
+    this.isSidebarVisible = $event;
   }
 }

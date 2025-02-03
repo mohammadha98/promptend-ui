@@ -1,139 +1,131 @@
 
- <!-- Toolbox Sidebar -->
-
- <button class="absolute -left-4 top-80 z-10 p-1.5 bg-gray-800/50 rounded-full shadow-xs 
-          hover:bg-gray-800 transition-colors group
-          backdrop-blur-xs" title="Toggle sidebar">
-   <svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor"
-     viewBox="0 0 24 24">
-     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
-   </svg>
- </button>
+<!-- Toolbox Sidebar -->
 
 
- <div class="space-y-4">
+<div class="sidebar-content" >
+  <div class="space-y-4">
 
-   <div class="group px-1 pt-1" data-state="open">
-     <div class="p-4 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
-       aria-expanded="true" aria-controls="model-section">
-       <div class="flex items-center justify-between gap-2">
-         <h3 class="text-sm font-semibold">AI Model</h3>
-         <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
-           fill="none" stroke="currentColor" viewBox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-         </svg>
-       </div>
-     </div>
-     <div id="model-section" class=" pb-4 pt-2 space-y-2" data-state="open">
-       <!-- Model Selection Section -->
-       <div class="p-4 bg-gray-800 rounded-xl">
+    <div class="group px-1 pt-1" data-state="open">
+      <div class="p-4 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
+        aria-expanded="true" aria-controls="model-section">
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-sm font-semibold">AI Model</h3>
+          <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+          </svg>
+        </div>
+      </div>
+      <div id="model-section" class=" pb-4 pt-2 space-y-2" data-state="open">
+        <!-- Model Selection Section -->
+        <div class="p-4 bg-gray-800 rounded-xl">
 
 
-         <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
-           aria-label="ChatGPT model">
-           <input type="radio" name="llm-model" class="form-radio" checked>
-           <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-           </svg>
-           <span class="text-sm">ChatGPT-4o</span>
-           <span class="ml-auto text-xs px-1.5 py-0.5 bg-green-500 rounded-md">Active</span>
-         </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+            aria-label="ChatGPT model">
+            <input type="radio" name="llm-model" class="form-radio" checked>
+            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span class="text-sm">ChatGPT-4o</span>
+            <span class="ml-auto text-xs px-1.5 py-0.5 bg-green-500 rounded-md">Active</span>
+          </label>
 
-         <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
-           aria-label="Claude model">
-           <input type="radio" name="llm-model" class="form-radio">
-           <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-               d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-           </svg>
-           <span class="text-sm">Claude 3.5</span>
-         </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+            aria-label="Claude model">
+            <input type="radio" name="llm-model" class="form-radio">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="text-sm">Claude 3.5</span>
+          </label>
 
-         <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
-           aria-label="Gemini model">
-           <input type="radio" name="llm-model" class="form-radio">
-           <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-6m6 0l-3-3m3 3l-3 3" />
-           </svg>
-           <span class="text-sm">Gemini Pro</span>
-           <span class="ml-auto text-xs px-1.5 py-0.5 bg-yellow-500 rounded-md">Beta</span>
-         </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+            aria-label="Gemini model">
+            <input type="radio" name="llm-model" class="form-radio">
+            <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-6m6 0l-3-3m3 3l-3 3" />
+            </svg>
+            <span class="text-sm">Gemini Pro</span>
+            <span class="ml-auto text-xs px-1.5 py-0.5 bg-yellow-500 rounded-md">Beta</span>
+          </label>
 
-         <button class="w-full mt-2 p-2 text-sm rounded-md transition-all duration-300 
-           bg-gradient-to-r from-gray-700 to-gray-800
-           hover:from-gray-600 hover:to-gray-700 
-           hover:shadow-lg hover:shadow-gray-500/10
-           active:scale-95 flex items-center justify-center gap-2" aria-label="Add custom model">
-           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-           </svg>
-           Custom Model...
-         </button>
+          <button class="w-full mt-2 p-2 text-sm rounded-md transition-all duration-300 
+            bg-gradient-to-r from-gray-700 to-gray-800
+            hover:from-gray-600 hover:to-gray-700 
+            hover:shadow-lg hover:shadow-gray-500/10
+            active:scale-95 flex items-center justify-center gap-2" aria-label="Add custom model">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Custom Model...
+          </button>
 
-       </div>
-     </div>
-   </div>
+        </div>
+      </div>
+    </div>
 
-   <!-- Rebuild Modes Section -->
-   <div class="group px-1" data-state="open">
-     <div class="p-4 bg-gray-800 rounded-t-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
-       aria-expanded="true" aria-controls="rebuild-section">
-       <div class="flex items-center justify-between gap-2">
-         <h3 class="text-sm font-semibold">Rebuild Modes</h3>
-         <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
-           fill="none" stroke="currentColor" viewBox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-         </svg>
-       </div>
-     </div>
-     <div class="p-4 bg-gray-800 rounded-b-xl">
+    <!-- Rebuild Modes Section -->
+    <div class="group px-1" data-state="open">
+      <div class="p-4 bg-gray-800 rounded-t-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
+        aria-expanded="true" aria-controls="rebuild-section">
+        <div class="flex items-center justify-between gap-2">
+          <h3 class="text-sm font-semibold">Rebuild Modes</h3>
+          <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+          </svg>
+        </div>
+      </div>
+      <div class="p-4 bg-gray-800 rounded-b-xl">
 
-       <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-         <input type="radio" name="rebuild-mode" class="form-radio" checked>
-         <span class="text-sm">Manual Edit</span>
-       </label>
-       <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-         <input type="radio" name="rebuild-mode" class="form-radio">
-         <span class="text-sm">Auto-Optimize</span>
-         <span class="text-xs px-1.5 py-0.5 bg-blue-500 rounded-md">Beta</span>
-       </label>
-       <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
-         <input type="radio" name="rebuild-mode" class="form-radio">
-         <span class="text-sm">Branch Preview</span>
-       </label>
+        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+          <input type="radio" name="rebuild-mode" class="form-radio" checked>
+          <span class="text-sm">Manual Edit</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+          <input type="radio" name="rebuild-mode" class="form-radio">
+          <span class="text-sm">Auto-Optimize</span>
+          <span class="text-xs px-1.5 py-0.5 bg-blue-500 rounded-md">Beta</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+          <input type="radio" name="rebuild-mode" class="form-radio">
+          <span class="text-sm">Branch Preview</span>
+        </label>
 
-     </div>
-   </div>
+      </div>
+    </div>
 
-   <div class="group px-1">
+    <div class="group px-1">
 
-     <div class="p-4 bg-gray-800 rounded-xl">
-       <h3 class="text-sm font-semibold mb-2">Optimization Settings</h3>
-       <div class="space-y-3">
-         <div class="flex items-center justify-between">
-           <span class="text-sm">Aggressiveness</span>
-           <select class="bg-gray-700 rounded-md text-sm p-1">
-             <option>Conservative</option>
-             <option>Balanced</option>
-             <option>Aggressive</option>
-           </select>
-         </div>
-         <div class="flex items-center justify-between">
-           <span class="text-sm">Preserve Intent</span>
-           <input type="checkbox" class="form-checkbox rounded bg-gray-700">
-         </div>
-         <button class="w-full p-2 text-white text-sm rounded-md transition-all duration-300 
-   bg-gradient-to-r from-green-500 to-blue-600 
-   hover:from-green-600 hover:to-blue-700 
-   hover:shadow-lg hover:shadow-green-500/20
-   active:scale-95">
-           Apply Optimization to Entire Thread
-         </button>
-       </div>
-     </div>
-   </div>
+      <div class="p-4 bg-gray-800 rounded-xl">
+        <h3 class="text-sm font-semibold mb-2">Optimization Settings</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm">Aggressiveness</span>
+            <select class="bg-gray-700 rounded-md text-sm p-1">
+              <option>Conservative</option>
+              <option>Balanced</option>
+              <option>Aggressive</option>
+            </select>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm">Preserve Intent</span>
+            <input type="checkbox" class="form-checkbox rounded bg-gray-700">
+          </div>
+          <button class="w-full p-2 text-white text-sm rounded-md transition-all duration-300 
+    bg-gradient-to-r from-green-500 to-blue-600 
+    hover:from-green-600 hover:to-blue-700 
+    hover:shadow-lg hover:shadow-green-500/20
+    active:scale-95">
+            Apply Optimization to Entire Thread
+          </button>
+        </div>
+      </div>
+    </div>
 
- </div>
-
+  </div>
+</div>
 

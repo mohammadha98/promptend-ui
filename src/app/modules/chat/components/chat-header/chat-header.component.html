@@ -1,4 +1,4 @@
-<header class="p-4 border-b border-gray-700 flex items-center justify-between">
+<header class="p-4 border-b border-gray-700 flex items-center justify-between relative">
     <h1 class="text-lg font-semibold">Current Session</h1>
     <div class="flex items-center gap-3">
         <button class="px-3 py-1 bg-gray-800 rounded-md text-sm hover:bg-gray-700 transition-colors">
@@ -7,5 +7,12 @@
         <button class="px-3 py-1 bg-gray-800 rounded-md text-sm hover:bg-gray-700 transition-colors">
             Export
         </button>
+        <button (click)="onToggleSidebar()" class="rounded-full p-2 bg-gray-800 hover:bg-gray-700 transition-colors shadow-md flex items-center justify-center">
+            <svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" [ngClass]="{'rotate-180': !isSidebarVisible}">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
     </div>
+
 </header>

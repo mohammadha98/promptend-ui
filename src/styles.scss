@@ -1,9 +1,37 @@
 
    @use 'tailwindcss/base';
    @use 'tailwindcss/components';
-   @use 'tailwindcss/utilities';
+  @use 'tailwindcss/utilities';
 
+  html {
+    scroll-behavior: smooth;
+    word-break: break-word;
+  }
 
+  ::selection {
+    color: oklch(var(--pc));
+    background: oklch(var(--p));
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2b2b3d #1e1e2f !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1e1e2f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #2b2b3d;
+    border-radius: 4px;
+    border: 2px solid #1e1e2f;
+  }
 
    @layer utilities {
     .bg-neutral-dark {

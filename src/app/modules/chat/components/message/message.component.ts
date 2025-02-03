@@ -8,9 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() isUserMessage: boolean = false;
-  @Input() userMessage: string = '';
+  @Input() messageType: 'user' | 'ai' = 'user';
+  @Input() content: string = '';
   @Input() userTokens: number = 0;
-  @Input() userModel: string = '';
-  @Input() aiResponse: string = '';
+  @Input() model: string = '';
 }
