@@ -1,34 +1,58 @@
-    <!-- Sidebar Header -->
-    <div class="mb-4">
-        <h2 class="text-xl font-bold text-white-800">Chat Lists</h2>
+
+<div class="p-4 border-b border-gray-700">
+    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        Chat History
+    </h2>
+</div>
+
+<!-- Enhanced Conversation Flow Item -->
+<div class="group relative p-4 hover:bg-gray-700 rounded-lg transition-colors" x-data="{ isOpen: false }">
+    <div class="flex items-center justify-between cursor-pointer">
+        <div class="flex-1 truncate">
+            <span class="text-sm">Main Conversation Flow</span>
+            <div class="flex items-center gap-1 mt-1">
+                <span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded-md">3 branches</span>
+                <span class="text-xs text-green-400">Active</span>
+            </div>
+        </div>
+        <button aria-label="Toggle branch visibility" class="transform transition-transform duration-200"
+            :class="{ 'rotate-180': isOpen }">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
     </div>
 
-    <ul class="space-y-2">
-        <li class="cursor-pointer hover:bg-gray-700 p-2 rounded relative group">
-            Title
-            <button class="absolute right-2 top-2 text-white">⋮</button>
-            <ul class="hidden group-hover:block bg-gray-800 p-2 rounded mt-2 space-y-2 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 -translate-y-2">
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 1</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 2</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 3</li>
-            </ul>
-        </li>
-        <li class="cursor-pointer hover:bg-gray-700 p-2 rounded relative group">
-            Title
-            <button class="absolute right-2 top-2 text-white">⋮</button>
-            <ul class="hidden group-hover:block bg-gray-800 p-2 rounded mt-2 space-y-2 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 -translate-y-2">
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 1</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 2</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 3</li>
-            </ul>
-        </li>
-        <li class="cursor-pointer hover:bg-gray-700 p-2 rounded relative group">
-            Title
-            <button class="absolute right-2 top-2 text-white">⋮</button>
-            <ul class="hidden group-hover:block bg-gray-800 p-2 rounded mt-2 space-y-2 transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 -translate-y-2">
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 1</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 2</li>
-                <li class="p-2 rounded hover:bg-gray-700">Sub Item 3</li>
-            </ul>
-        </li>
-    </ul>
+    <!-- Nested Branches with Animation -->
+    <div class="ml-4 mt-2 space-y-1 overflow-hidden transition-all duration-300"
+        :class="isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'">
+        <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors
+           border-l-2 border-blue-500 hover:border-blue-400">
+            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
+            Technical Clarifications
+            <span class="ml-auto text-xs text-gray-400">2h ago</span>
+        </div>
+        <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors
+           border-l-2 border-purple-500 hover:border-purple-400">
+            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+            Creative Variations
+            <span class="ml-auto text-xs text-gray-400">1h ago</span>
+        </div>
+        <button class="w-full p-2 text-sm text-gray-400 hover:text-white flex items-center
+              transition-colors hover:bg-gray-800 rounded-md">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            New Branch
+        </button>
+    </div>
+</div>
+
+<!-- Rest of chat history items -->
+<div class="flex-1 overflow-y-auto p-2 space-y-1">
+    <!-- Existing history items remain unchanged -->
+</div>

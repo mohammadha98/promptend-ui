@@ -1,14 +1,16 @@
-import { NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-message',
-  imports: [NgClass],
+  imports: [NgIf],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() type: 'sent' | 'received' = 'received';
-  @Input() content: string = '';
-  
+  @Input() isUserMessage: boolean = false;
+  @Input() userMessage: string = '';
+  @Input() userTokens: number = 0;
+  @Input() userModel: string = '';
+  @Input() aiResponse: string = '';
 }

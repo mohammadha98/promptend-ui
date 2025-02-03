@@ -1,39 +1,16 @@
-<main class="bg-neutral-dark text-gray-100 h-screen flex justify-center items-center">
+<!-- Chat History Sidebar -->
+<chat-lists class="chat-list"></chat-lists>
 
-        <!-- Chat History Sidebar -->
-        <div class="w-1/6 bg-neutral-light h-full shadow-lg border border-gray-700 rounded-lg p-4 flex flex-col">
-      <app-chat-lists></app-chat-lists>
-        </div>
-    
- 
-    <!-- Main Chat Area -->
-    <div class="flex-1 max-w-4xl mx-auto h-full flex flex-col">
-        <!-- Chat Wrapper -->
-        <div class="flex flex-col flex-1 bg-neutral-light w-full h-full shadow-lg border border-gray-700 rounded-lg">
- 
-           <!-- Header -->
-           <div class="p-4 bg-gray-800 text-gray-200 text-lg font-semibold rounded-t-lg">
-              Chat Application
-           </div>
- 
-           <!-- Chat Messages Section -->
-           <div id="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
- 
-              <ng-container *ngFor="let message of messages; let i = index">
-                 <app-message [type]="message.type" [content]="message.content"></app-message>
-              </ng-container>
- 
-           </div>
- 
-           <app-chat-input (sendMessage)="handleSendMessage($event)" class="p-4"></app-chat-input>
- 
-        </div>
-    </div>
-    
 
-     <div class="w-1/6 bg-neutral-light h-full shadow-lg border border-gray-700 rounded-lg p-4 flex flex-col">
-        <chat-sidebar></chat-sidebar>
+<!-- Main Chat Area -->
+<main class="main-container">
 
-     </div>
- 
- </main>
+    <app-chat-header></app-chat-header>
+    <app-message-list class="message-list" [messages]="messages"></app-message-list>
+    <app-chat-input class="chat-input"></app-chat-input>
+
+</main>
+
+
+
+<chat-sidebar class="chat-toolbox"></chat-sidebar>

@@ -1,0 +1,6 @@
+
+    @for(message of messages;track $index){
+    <app-message [isUserMessage]="message.isUserMessage" [userMessage]="message.userMessage"
+        [userTokens]="message.userTokens" [userModel]="message.userModel" [aiResponse]="message.aiResponse">
+    </app-message>
+    }

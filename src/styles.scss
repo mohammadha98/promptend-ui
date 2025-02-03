@@ -1,7 +1,9 @@
-   // src/styles.scss
+
    @use 'tailwindcss/base';
    @use 'tailwindcss/components';
    @use 'tailwindcss/utilities';
+
+
 
    @layer utilities {
     .bg-neutral-dark {
@@ -14,5 +16,23 @@
 
     .text-neutral-muted {
       color: #b0b0c3;
+    }
+
+    .chat-height-mobile {
+      height: calc(100vh - 12rem);
+    }
+
+    @media (min-width: 1024px) {
+      .chat-height-desktop {
+        height: calc(100vh - 4rem);
+      }
+    }
+  }
+
+  @layer utilities {
+    .flex-stable {
+      flex: 0 0 auto;
+      min-width: 0;
+      min-height: 0;
     }
   }

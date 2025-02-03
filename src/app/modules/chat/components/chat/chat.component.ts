@@ -6,42 +6,24 @@ import { ChatService } from '../../services/chat.service';
 import { ChatSidebarComponent } from "../chat-sidebar/sidebar.component";
 import { SidebarComponent } from '../../../../shared/sidebar/sidebar.component';
 import { ChatListsComponent } from "../chat-lists/chat-lists.component";
+import { MessageListComponent } from '../message-list/message-list.component';
+import { ChatHeaderComponent } from "../chat-header/chat-header.component";
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatInputComponent, MessageComponent, NgFor, ChatSidebarComponent, SidebarComponent, ChatListsComponent],
+  imports: [ChatInputComponent, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, SidebarComponent, ChatListsComponent, ChatHeaderComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent {
 
   constructor(private chatservice:ChatService) {}
-  messages: any[] = [
-    {
-      type: 'received',
-      content: 'Hello! How can I assist you today? 😊'
-    },
-    {
-      type: 'sent',
-      content: 'Hi! Can you help me with Tailwind CSS?'
-    }
+  messages = [
+    { isUserMessage: true, userMessage: 'Hello!', userTokens: 10, userModel: 'GPT-3', aiResponse: '' },
+    { isUserMessage: false, userMessage: '', userTokens: 0, userModel: '', aiResponse: 'Hi there!' }
   ];
 
   handleSendMessage(messageContent: any) {
-    console.log("chat cmp :",messageContent);
-
-    if (messageContent.trim()) {
-      this.messages.push({
-        type: 'sent',
-        content: messageContent
-      });
-
-      // Send the message to the chat server
-       this.chatservice.sendMessage(messageContent,).subscribe(response => {
-        console.log(response);
-        
-       });
-
-    }
+ 
   }
 }
