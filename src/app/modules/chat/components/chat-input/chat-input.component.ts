@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class ChatInputComponent {
   @Output() sendMessage = new EventEmitter<string>();
- @ViewChild('inputMessaage') message!: ElementRef;
+  message: string = '';
 
   onSubmit() {
-    if(!this.message) return;
-    this.sendMessage.emit(this.message.nativeElement.value as string);
-    this.message.nativeElement.value = '';
+    if (!this.message.trim()) return;
+    this.sendMessage.emit(this.message);
+    this.message = '';
   }
 }

@@ -23,7 +23,8 @@ export class ChatComponent {
     { isUserMessage: false, userMessage: '', userTokens: 0, userModel: '', aiResponse: 'Hi there!' }
   ];
 
-  handleSendMessage(messageContent: any) {
- 
+  handleSendMessage(messageContent: string) {
+    this.messages.push({ isUserMessage: true, userMessage: messageContent, userTokens: 10, userModel: 'GPT-3', aiResponse: '' });
+    // Add logic to handle AI response if needed
   }
 }

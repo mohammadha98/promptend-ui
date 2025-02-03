@@ -7,7 +7,7 @@
 
     <app-chat-header></app-chat-header>
     <app-message-list class="message-list" [messages]="messages"></app-message-list>
-    <app-chat-input class="chat-input"></app-chat-input>
+    <app-chat-input class="chat-input" (sendMessage)="handleSendMessage($event)"></app-chat-input>
 
 </main>
 
