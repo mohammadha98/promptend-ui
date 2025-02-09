@@ -21,15 +21,7 @@ export class ChatListsComponent {
         { name: 'Creative Variations', timeAgo: '1h ago', color: 'purple' }
       ]
     },
-    {
-      title: 'Secondary Flow',
-      branches: 2,
-      status: 'inactive',
-      lastUpdated: '5h ago',
-      branchesDetails: [
-        { name: 'Follow-up Questions', timeAgo: '3h ago', color: 'green' }
-      ]
-    }
+  
   ]);
 
   toggleBranchVisibility(item: ChatHistoryItem, isOpen: boolean) {

@@ -7,9 +7,10 @@
   </h2>
 </div>
 
+
 <!-- Rest of chat history items -->
-<div class="flex-1 overflow-y-auto p-2 space-y-1">
-    @for(item of chatHistory();track $index){
+<div class="flex-1 h-full overflow-y-auto p-2 space-y-1" >
+  @for(item of chatHistory();track $index){
   <div class="group relative p-4 hover:bg-gray-700 rounded-lg transition-colors"
     (mouseenter)="toggleBranchVisibility(item, true)" (mouseleave)="toggleBranchVisibility(item, false)">
     <div class="flex items-center justify-between cursor-pointer">
@@ -34,13 +35,13 @@
     <div class="ml-4 mt-2 space-y-1 overflow-hidden transition-all duration-300"
       [ngClass]="item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'">
       @for(branch of item.branchesDetails;track $index){
-      <div  class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors"
+      <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors"
         [ngClass]="{'border-l-2': true, 'border-blue-500 hover:border-blue-400': branch.color === 'blue', 'border-purple-500 hover:border-purple-400': branch.color === 'purple', 'border-green-500 hover:border-green-400': branch.color === 'green'}">
         <span class="w-2 h-2" [ngClass]="{'bg-blue-500': branch.color === 'blue', 'bg-purple-500': branch.color === 'purple', 'bg-green-500': branch.color === 'green'}" class="rounded-full mr-2"></span>
         {{ branch.name }}
         <span class="ml-auto text-xs text-gray-400">{{ branch.timeAgo }}</span>
       </div>
-    }
+      }
       <button class="w-full p-2 text-sm text-gray-400 hover:text-white flex items-center transition-colors hover:bg-gray-800 rounded-md">
         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -49,5 +50,9 @@
       </button>
     </div>
   </div>
-}
+  }
+
 </div>
+
+
+

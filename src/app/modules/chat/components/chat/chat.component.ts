@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
-  imports: [ChatInputComponent, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, ChatListsComponent, ChatHeaderComponent,NgIf],
+  imports: [ChatInputComponent, MessageListComponent, ChatHeaderComponent, ChatSidebarComponent, ChatListsComponent, ChatHeaderComponent, NgIf],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
@@ -23,23 +23,20 @@ export class ChatComponent {
     content: Signal<string>, 
     userTokens: Signal<number>, 
     model: Signal<string> 
-  }[]> = signal([
-    { messageType: signal('user'), content: signal('Hello!'), userTokens: signal(10), model: signal('GPT-3') },
-    { messageType: signal('user'), content: signal('Hello!'), userTokens: signal(10), model: signal('GPT-3') },
-    { messageType: signal('ai'), content: signal('Hi there!'), userTokens: signal(0), model: signal('GPT-3') },
-    { messageType: signal('ai'), content: signal('Hi there!'), userTokens: signal(0), model: signal('GPT-3') },
-    { messageType: signal('user'), content: signal('How are you?'), userTokens: signal(10), model: signal('GPT-3') },
-    { messageType: signal('ai'), content: signal('I am just a program, but I am functioning as expected!'), userTokens: signal(0), model: signal('GPT-3') },
-    { messageType: signal('user'), content: signal('What can you do?'), userTokens: signal(10), model: signal('GPT-3') },
-    { messageType: signal('ai'), content: signal('I can assist with various tasks, such as answering questions and providing information.'), userTokens: signal(0), model: signal('GPT-3') }
-  ]);
+  }[]> = signal([]);
 
   handleSendMessage(messageContent: string) {
     console.log(messageContent);
-    
+
+    if (this.messages().length === 0) {
+      this.chatservice.addConversation('New Conversation').subscribe(response => {
+        console.log('Conversation added:', response);
+        // Optionally, you can store the conversation ID or perform other actions here
+      });
+    }
+
     this.messages.set([...this.messages(), { messageType: signal('user'), content: signal(messageContent), userTokens: signal(10), model: signal('GPT-3') }]);
     console.log(this.messages());
-    
   }
 
   toggleSidebar($event: boolean) {
