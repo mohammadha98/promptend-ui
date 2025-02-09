@@ -1,58 +1,53 @@
 <div class="p-4 border-b border-gray-700">
-    <h2 class="text-xl font-bold text-white flex items-center gap-2">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        Chat History
-    </h2>
+  <h2 class="text-xl font-bold text-white flex items-center gap-2">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+    Chat History
+  </h2>
 </div>
 
 <!-- Rest of chat history items -->
 <div class="flex-1 overflow-y-auto p-2 space-y-1">
-    @for(item of chatHistory;track $index){
-    <div class="group relative p-4 hover:bg-gray-700 rounded-lg transition-colors"
-        (mouseenter)="toggleBranchVisibility(item, true)" (mouseleave)="toggleBranchVisibility(item, false)">
-        <div class="flex items-center justify-between cursor-pointer">
-            <div class="flex-1 truncate">
-                <span class="text-sm">{{ item.title }}</span>
-                <div class="flex items-center gap-1 mt-1">
-                    <span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded-md">{{ item.branches }} branches</span>
-                    <span class="text-xs"
-                        [ngClass]="{'text-green-400': item.status === 'active', 'text-gray-400': item.status === 'inactive'}">
-                        {{ item.status }}
-                    </span>
-                </div>
-            </div>
-            <button aria-label="Toggle branch visibility" class="transform transition-transform duration-200"
-                [ngClass]="{ 'rotate-180': item.isOpen }">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
+    @for(item of chatHistory();track $index){
+  <div class="group relative p-4 hover:bg-gray-700 rounded-lg transition-colors"
+    (mouseenter)="toggleBranchVisibility(item, true)" (mouseleave)="toggleBranchVisibility(item, false)">
+    <div class="flex items-center justify-between cursor-pointer">
+      <div class="flex-1 truncate">
+        <span class="text-sm">{{ item.title }}</span>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded-md">{{ item.branches }} branches</span>
+          <span class="text-xs" [ngClass]="{'text-green-400': item.status === 'active', 'text-gray-400': item.status === 'inactive'}">
+            {{ item.status }}
+          </span>
         </div>
-
-        <!-- Nested Branches with Animation -->
-        <div class="ml-4 mt-2 space-y-1 overflow-hidden transition-all duration-300"
-            [ngClass]="item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'">
-            @for(branch of item.branchesDetails;track $index){
-            <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors"
-                [ngClass]="{'border-l-2': true, 'border-blue-500 hover:border-blue-400': branch.color === 'blue', 'border-purple-500 hover:border-purple-400': branch.color === 'purple', 'border-green-500 hover:border-green-400': branch.color === 'green'}">
-                <span class="w-2 h-2"
-                    [ngClass]="{'bg-blue-500': branch.color === 'blue', 'bg-purple-500': branch.color === 'purple', 'bg-green-500': branch.color === 'green'}"
-                    class="rounded-full mr-2"></span>
-                {{ branch.name }}
-                <span class="ml-auto text-xs text-gray-400">{{ branch.timeAgo }}</span>
-            </div>
-            }
-            <button
-                class="w-full p-2 text-sm text-gray-400 hover:text-white flex items-center transition-colors hover:bg-gray-800 rounded-md">
-                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                New Branch
-            </button>
-        </div>
+      </div>
+      <button aria-label="Toggle branch visibility" class="transform transition-transform duration-200"
+        [ngClass]="{ 'rotate-180': item.isOpen }">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
     </div>
+
+    <!-- Nested Branches with Animation -->
+    <div class="ml-4 mt-2 space-y-1 overflow-hidden transition-all duration-300"
+      [ngClass]="item.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'">
+      @for(branch of item.branchesDetails;track $index){
+      <div  class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors"
+        [ngClass]="{'border-l-2': true, 'border-blue-500 hover:border-blue-400': branch.color === 'blue', 'border-purple-500 hover:border-purple-400': branch.color === 'purple', 'border-green-500 hover:border-green-400': branch.color === 'green'}">
+        <span class="w-2 h-2" [ngClass]="{'bg-blue-500': branch.color === 'blue', 'bg-purple-500': branch.color === 'purple', 'bg-green-500': branch.color === 'green'}" class="rounded-full mr-2"></span>
+        {{ branch.name }}
+        <span class="ml-auto text-xs text-gray-400">{{ branch.timeAgo }}</span>
+      </div>
     }
+      <button class="w-full p-2 text-sm text-gray-400 hover:text-white flex items-center transition-colors hover:bg-gray-800 rounded-md">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+        New Branch
+      </button>
+    </div>
+  </div>
+}
 </div>

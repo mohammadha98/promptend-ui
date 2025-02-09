@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Signal, signal } from '@angular/core';
 
 @Component({
   selector: 'app-message',
@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() messageType: 'user' | 'ai' = 'user';
-  @Input() content: string = '';
-  @Input() userTokens: number = 0;
-  @Input() model: string = '';
+  @Input() messageType: Signal<'user' | 'ai'> = signal('user');
+  @Input() content: Signal<string> = signal('');
+  @Input() userTokens: Signal<number> = signal(0);
+  @Input() model: Signal<string> = signal('');
 }

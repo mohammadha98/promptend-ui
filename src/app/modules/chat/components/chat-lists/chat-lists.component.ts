@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { ChatHistoryItem } from '../../models/message-list.model';
 import { NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'chat-lists',
-  imports: [NgClass,NgFor],
+  imports: [NgClass],
   templateUrl: './chat-lists.component.html',
   styleUrls: ['./chat-lists.component.scss']
 })
 export class ChatListsComponent {
-  chatHistory: ChatHistoryItem[] = [
+  
+  chatHistory: WritableSignal<ChatHistoryItem[]> = signal([
     {
       title: 'Main Conversation Flow',
       branches: 3,
@@ -29,7 +30,7 @@ export class ChatListsComponent {
         { name: 'Follow-up Questions', timeAgo: '3h ago', color: 'green' }
       ]
     }
-  ];
+  ]);
 
   toggleBranchVisibility(item: ChatHistoryItem, isOpen: boolean) {
     item.isOpen = isOpen;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Signal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class ChatInputComponent {
   @Output() sendMessage = new EventEmitter<string>();
-  message: string = '';
+  message = signal('');
 
   onSubmit() {
-    if (!this.message.trim()) return;
-    this.sendMessage.emit(this.message);
-    this.message = '';
+    if (!this.message().trim()) return;
+    this.sendMessage.emit(this.message());
+    this.message.update(() => '');
   }
 }

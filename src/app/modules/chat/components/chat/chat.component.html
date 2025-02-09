@@ -4,14 +4,10 @@
 <!-- Main Chat Area -->
 <main class="main-container">
     <app-chat-header (toggleSidebar)="toggleSidebar($event)"></app-chat-header>
-    <app-message-list class="message-list" [messages]="messages"></app-message-list>
+    <app-message-list class="message-list" [messages]="messages()"></app-message-list>
     <app-chat-input class="chat-input" (sendMessage)="handleSendMessage($event)"></app-chat-input>
 </main>
 
-
 <!-- Chat Sidebar -->
-
-@if(isSidebarVisible){
-<chat-sidebar class="chat-toolbox"></chat-sidebar>
-}
+<chat-sidebar class="chat-toolbox" *ngIf="isSidebarVisible()"></chat-sidebar>
 
