@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { ChatHistoryItem } from '../models/message-list.model';
 
 @Injectable({
     providedIn: 'root'
@@ -9,10 +10,26 @@ import { environment } from '../../../../environments/environment.development';
 export class ChatService {
     private apiUrl = environment.SERVER_URL;
     private fakeUserID = '67a8a06a76652af2c9e45143';
+    private chatHistory: WritableSignal<ChatHistoryItem[]> = signal([
+        // {
+        //     title: 'Main Conversation Flow',
+        //     branches: 0,
+        //     status: 'active',
+        //     lastUpdated: '2h ago',
+        //     branchesDetails: [
+        //         { name: 'Technical Clarifications', timeAgo: '2h ago', color: 'blue' },
+        //         { name: 'Creative Variations', timeAgo: '1h ago', color: 'purple' }
+        //     ]
+        // },
+    ]);
     constructor(private http: HttpClient) { }
 
-
-
+    getChatHistory() {
+        return this.chatHistory.asReadonly();
+    }
+    addChatItem(newItem: ChatHistoryItem) {
+        this.chatHistory.update((currentHistory) => [...currentHistory, newItem]);
+    }
     addConversation(title: string): Observable<any> {
         const data = {
             userId: this.fakeUserID,

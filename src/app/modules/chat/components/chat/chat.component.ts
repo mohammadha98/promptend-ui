@@ -7,6 +7,7 @@ import { MessageListComponent } from '../message-list/message-list.component';
 import { ChatHeaderComponent } from "../chat-header/chat-header.component";
 import { MessageModel } from '../../models/message.model';
 import { NgIf } from '@angular/common';
+import { ChatHistoryItem } from '../../models/message-list.model';
 
 @Component({
   selector: 'app-chat',
@@ -17,21 +18,33 @@ import { NgIf } from '@angular/common';
 export class ChatComponent {
   @Input() isSidebarVisible: WritableSignal<boolean> = signal(true);
 
+  conversId: string | undefined = undefined;
   constructor(private chatservice: ChatService) { }
-  messages: WritableSignal<{ 
-    messageType: Signal<'user' | 'ai'>, 
-    content: Signal<string>, 
-    userTokens: Signal<number>, 
-    model: Signal<string> 
+  messages: WritableSignal<{
+    messageType: Signal<'user' | 'ai'>,
+    content: Signal<string>,
+    userTokens: Signal<number>,
+    model: Signal<string>
   }[]> = signal([]);
 
   handleSendMessage(messageContent: string) {
     console.log(messageContent);
 
     if (this.messages().length === 0) {
-      this.chatservice.addConversation('New Conversation').subscribe(response => {
-        console.log('Conversation added:', response);
-        // Optionally, you can store the conversation ID or perform other actions here
+      this.chatservice.addConversation(messageContent).subscribe(response => {
+        console.log(response.response.title);
+        this.conversId = response.response._id;
+        
+
+        const newChatItem: ChatHistoryItem = {
+          id:this.conversId,
+          title: response.response.title,
+          branches: 0,
+          status: 'active',
+          lastUpdated: 'just now',
+          branchesDetails: []
+        };
+        this.chatservice.addChatItem(newChatItem);
       });
     }
 

@@ -1,4 +1,5 @@
 export interface ChatHistoryItem {
+    id?:string,
     title: string;
     branches: number;
     status: 'active' | 'inactive';

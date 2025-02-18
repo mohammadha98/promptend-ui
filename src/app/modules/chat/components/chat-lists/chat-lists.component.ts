@@ -1,6 +1,7 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, Input, Signal, signal, WritableSignal } from '@angular/core';
 import { ChatHistoryItem } from '../../models/message-list.model';
 import { NgClass, NgFor } from '@angular/common';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'chat-lists',
@@ -10,21 +11,17 @@ import { NgClass, NgFor } from '@angular/common';
 })
 export class ChatListsComponent {
   
-  chatHistory: WritableSignal<ChatHistoryItem[]> = signal([
-    {
-      title: 'Main Conversation Flow',
-      branches: 3,
-      status: 'active',
-      lastUpdated: '2h ago',
-      branchesDetails: [
-        { name: 'Technical Clarifications', timeAgo: '2h ago', color: 'blue' },
-        { name: 'Creative Variations', timeAgo: '1h ago', color: 'purple' }
-      ]
-    },
-  
-  ]);
+  chatHistory: any;
+
+  constructor(private chatStateService: ChatService) {
+    this.chatHistory = this.chatStateService.getChatHistory();
+  }
 
   toggleBranchVisibility(item: ChatHistoryItem, isOpen: boolean) {
     item.isOpen = isOpen;
+  }
+
+  addChatItem(newItem: ChatHistoryItem) {
+    this.chatHistory.update((currentHistory:any) => [...currentHistory, newItem]);
   }
 }

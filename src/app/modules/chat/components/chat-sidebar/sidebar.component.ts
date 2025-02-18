@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 @Component({
   selector: 'chat-sidebar',
   templateUrl: './sidebar.component.html',
-  imports: [ NgClass],
+  imports: [NgClass],
   styleUrls: ['./sidebar.component.scss'],
 })
 export class ChatSidebarComponent {

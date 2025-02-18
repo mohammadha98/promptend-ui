@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output, Signal, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, Signal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat-input',
@@ -11,9 +12,13 @@ export class ChatInputComponent {
   @Output() sendMessage = new EventEmitter<string>();
   message = signal('');
 
+
+
   onSubmit() {
     if (!this.message().trim()) return;
     this.sendMessage.emit(this.message());
     this.message.update(() => '');
+
+    
   }
 }
