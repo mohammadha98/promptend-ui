@@ -8,6 +8,8 @@ import { ChatHeaderComponent } from "../chat-header/chat-header.component";
 import { MessageModel } from '../../models/message.model';
 import { NgIf } from '@angular/common';
 import { ChatHistoryItem } from '../../models/message-list.model';
+import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -19,7 +21,7 @@ export class ChatComponent {
   @Input() isSidebarVisible: WritableSignal<boolean> = signal(true);
 
   conversId: string | undefined = undefined;
-  constructor(private chatservice: ChatService) { }
+  constructor(private chatservice: ChatService, private socket: Socket) { }
   messages: WritableSignal<{
     messageType: Signal<'user' | 'ai'>,
     content: Signal<string>,
@@ -31,20 +33,21 @@ export class ChatComponent {
     console.log(messageContent);
 
     if (this.messages().length === 0) {
+      
       this.chatservice.addConversation(messageContent).subscribe(response => {
-        console.log(response.response.title);
-        this.conversId = response.response._id;
+        console.log(response);
         
-
-        const newChatItem: ChatHistoryItem = {
-          id:this.conversId,
-          title: response.response.title,
-          branches: 0,
-          status: 'active',
-          lastUpdated: 'just now',
-          branchesDetails: []
+        this.conversId = response.id;
+       const newChatListItem:ChatHistoryItem= {
+            title: response,
+            branches: 0,
+            status: 'active',
+            lastUpdated: 'now',
+            branchesDetails: [ ]
         };
-        this.chatservice.addChatItem(newChatItem);
+
+        this.chatservice.addChatItem(newChatListItem)
+        this.messages.set([...this.messages(), { messageType: signal('user'), content: signal(messageContent), userTokens: signal(10), model: signal('GPT-3') }]);
       });
     }
 

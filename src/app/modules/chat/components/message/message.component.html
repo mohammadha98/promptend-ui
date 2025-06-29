@@ -1,8 +1,8 @@
 <!-- User Message -->
-<div *ngIf="messageType() === 'user'" class="flex justify-end pt-2">
-  <div class="max-w-[min(80%,48rem)] bg-blue-600 text-white p-4 rounded-2xl rounded-br-none shadow-md">
-    <p class="text-sm">{{ content() }}</p>
-    <div class="mt-2 flex items-center gap-2 text-xs opacity-75">
+<div *ngIf="messageType() === 'user'" class="flex justify-end pt-4">
+  <div class="max-w-[min(80%,48rem)] bg-primary-50 dark:bg-primary-800 text-primary-700 dark:text-primary-200 p-6 rounded-lg shadow-sm">
+    <p class="text-base leading-relaxed">{{ content() }}</p>
+    <div class="mt-3 flex items-center gap-2 text-sm opacity-75">
       <span>Tokens: {{ userTokens() }}</span>
       <span>•</span>
       <span>{{ model() }}</span>
@@ -11,18 +11,18 @@
 </div>
 
 <!-- AI Response -->
-<div *ngIf="messageType() === 'ai'" class="flex justify-start pt-2">
-  <div class="max-w-[min(80%,48rem)] bg-gray-700 p-4 rounded-2xl rounded-bl-none shadow-md">
-    <p class="text-sm">{{ content() }}</p>
-    <div class="mt-3 flex gap-2">
-      <button class="p-1.5 hover:bg-gray-600 rounded-md transition-colors group" aria-label="Copy response">
-        <svg class="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<div *ngIf="messageType() === 'ai'" class="flex justify-start pt-4">
+  <div class="max-w-[min(80%,48rem)] bg-neutral-100 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 p-6 rounded-lg shadow-sm">
+    <p class="text-base leading-relaxed">{{ content() }}</p>
+    <div class="mt-4 flex gap-2">
+      <button class="p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-secondary-500" aria-label="Copy response">
+        <svg class="w-4 h-4 text-secondary-500 group-hover:text-secondary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
         </svg>
       </button>
 
-      <button class="p-1.5 hover:bg-gray-600 rounded-md transition-colors group" aria-label="Regenerate response">
-        <svg class="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button class="p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-secondary-500" aria-label="Regenerate response">
+        <svg class="w-4 h-4 text-secondary-500 group-hover:text-secondary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
         </svg>
       </button>

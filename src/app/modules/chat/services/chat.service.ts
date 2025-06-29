@@ -11,16 +11,16 @@ export class ChatService {
     private apiUrl = environment.SERVER_URL;
     private fakeUserID = '67a8a06a76652af2c9e45143';
     private chatHistory: WritableSignal<ChatHistoryItem[]> = signal([
-        // {
-        //     title: 'Main Conversation Flow',
-        //     branches: 0,
-        //     status: 'active',
-        //     lastUpdated: '2h ago',
-        //     branchesDetails: [
-        //         { name: 'Technical Clarifications', timeAgo: '2h ago', color: 'blue' },
-        //         { name: 'Creative Variations', timeAgo: '1h ago', color: 'purple' }
-        //     ]
-        // },
+        {
+            title: 'Main Conversation Flow',
+            branches: 0,
+            status: 'active',
+            lastUpdated: '2h ago',
+            branchesDetails: [
+                { name: 'Technical Clarifications', timeAgo: '2h ago', color: 'blue' },
+                { name: 'Creative Variations', timeAgo: '1h ago', color: 'purple' }
+            ]
+        },
     ]);
     constructor(private http: HttpClient) { }
 
