@@ -7,6 +7,15 @@
         <button class="btn-primary">
             Export
         </button>
+      
+            <button 
+                (click)="themeService.toggleTheme()" 
+                [attr.aria-label]="themeService.isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+                class="rounded-lg p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out shadow-sm flex items-center justify-center focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                [ngClass]="{'dark:bg-neutral-800': themeService.isDarkMode}">
+                <ui-icon [name]="themeService.isDarkMode ? 'moon' : 'sun'" size="5"></ui-icon>
+            </button>
+        
         <button (click)="onToggleSidebar()" class="rounded-lg p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out shadow-sm flex items-center justify-center focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500">
             <svg class="w-5 h-5 text-secondary-500 transition-transform duration-150" fill="none" stroke="currentColor"
             viewBox="0 0 24 24" [ngClass]="{'rotate-180': !isSidebarVisible}">

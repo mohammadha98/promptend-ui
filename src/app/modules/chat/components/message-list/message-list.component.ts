@@ -9,11 +9,13 @@ import { MessageComponent } from '../message/message.component';
   styleUrls: ['./message-list.component.scss']
 })
 export class MessageListComponent {
+  @Input() conversationId: Signal<string> = signal('');
   @Input() messages: { 
     messageType: Signal<'user' | 'ai'>, 
     content: Signal<string>, 
     userTokens: Signal<number>, 
-    model: Signal<string> 
+    model: Signal<string>,
+    id?: Signal<string>
   }[] = [
     {
       messageType: signal<'user' | 'ai'>('user'),
@@ -29,4 +31,7 @@ export class MessageListComponent {
     }
   ];
 
+  getMessageId(message: any, index: number): Signal<string> {
+    return message.id || signal('msg-' + index);
+  }
 }

@@ -1,10 +1,12 @@
 
-    @for(message of messages;track $index){
+@for(message of messages;track $index){
     <app-message 
     [messageType]="message.messageType"
     [content]="message.content"
     [userTokens]="message.userTokens"
     [model]="message.model"
+    [messageId]="getMessageId(message, $index)"
+    [conversationId]="conversationId"
        >
     </app-message>
     }

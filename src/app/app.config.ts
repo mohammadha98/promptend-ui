@@ -4,6 +4,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { SocketIoConfig, provideSocketIo } from 'ngx-socket-io';
+import { ThemeService } from './core/services/theme.service';
 
 
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} }; 

@@ -13,7 +13,7 @@
 
     <!-- Chat Messages -->
     <main class="flex-1 overflow-y-auto p-4">
-      <app-message-list [messages]="messages()"></app-message-list>
+      <app-message-list [messages]="messages()" [conversationId]="currentConversationId"></app-message-list>
     </main>
 
     <!-- Composer -->

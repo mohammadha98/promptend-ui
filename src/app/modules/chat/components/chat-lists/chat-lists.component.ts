@@ -1,7 +1,6 @@
 import { Component, Input, Signal, signal, WritableSignal } from '@angular/core';
 import { ChatHistoryItem } from '../../models/message-list.model';
 import { NgClass, NgFor } from '@angular/common';
-import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'chat-lists',
@@ -37,7 +36,7 @@ export class ChatListsComponent {
     }
   ]);
 
-  constructor(private chatStateService: ChatService) {
+  constructor() {
     // this.chatHistory = this.chatStateService.getChatHistory();
   }
 

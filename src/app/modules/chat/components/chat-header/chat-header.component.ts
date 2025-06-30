@@ -1,15 +1,25 @@
 import { NgClass } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { ThemeService } from '../../../../core/services/theme.service';
+import { IconComponent } from '../../../../shared/ui/icon/icon.component';
 
 @Component({
   selector: 'app-chat-header',
-  imports: [NgClass],
+  standalone: true,
+  imports: [NgClass, AsyncPipe, NgIf, IconComponent],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.scss'
 })
-export class ChatHeaderComponent {
+export class ChatHeaderComponent implements OnInit {
   isSidebarVisible: boolean = true;
- @Output() toggleSidebar = new EventEmitter<boolean>();
+  @Output() toggleSidebar = new EventEmitter<boolean>();
+
+  constructor(public themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    // Subscribe to theme changes if needed for additional logic
+  }
 
   onToggleSidebar() {
     this.isSidebarVisible = !this.isSidebarVisible;
