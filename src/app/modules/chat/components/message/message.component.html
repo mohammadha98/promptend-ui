@@ -1,0 +1,221 @@
+<!-- User Message -->
+<div *ngIf="messageType() === 'user'" class="flex justify-end pt-4" (contextmenu)="onContextMenu($event)">
+  <div class="max-w-[min(80%,48rem)] bg-primary-50 dark:bg-primary-800 text-primary-700 dark:text-primary-200 p-6 rounded-lg shadow-sm group hover:shadow-md transition-shadow duration-200 message-container relative" [class.collapsed]="message().isCollapsed">
+    <!-- Collapse/Expand Button (always visible) -->
+    <button class="absolute top-2 right-2 p-1 rounded-full hover:bg-primary-100 dark:hover:bg-primary-700 transition-colors duration-200" (click)="$event.stopPropagation(); onToggleCollapse()" [title]="message().isCollapsed ? 'Expand message' : 'Collapse message'">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path *ngIf="message().isCollapsed" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        <path *ngIf="!message().isCollapsed" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+    <!-- Collapsed Message Preview -->
+    <div *ngIf="message().isCollapsed && !isEditing()" class="cursor-pointer" (click)="onToggleCollapse()">
+      <p class="text-base leading-relaxed flex items-center justify-between">
+        <span class="truncate">{{ getMessagePreview() }}</span>
+        <svg class="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </p>
+    </div>
+    
+    <!-- Normal display mode (when not collapsed) -->
+    <div *ngIf="!message().isCollapsed && !isEditing()" (click)="startEdit()" (contextmenu)="onContextMenu($event)" class="cursor-pointer hover:bg-primary-100/50 dark:hover:bg-primary-700/50 rounded transition-colors duration-200 p-1 -m-1">
+      <!-- Show diff spans if available -->
+      <p *ngIf="diffSpans().length > 0" class="text-base leading-relaxed">
+        <span *ngFor="let span of diffSpans()">
+          <ng-container *ngIf="span.changed">
+            <span class="bg-yellow-200 dark:bg-yellow-700 px-0.5 rounded">{{ span.text }}</span>
+          </ng-container>
+          <ng-container *ngIf="!span.changed">
+            {{ span.text }}
+          </ng-container>
+        </span>
+      </p>
+      <!-- Show regular content if no diff spans -->
+      <p *ngIf="diffSpans().length === 0" class="text-base leading-relaxed">{{ content() }}</p>
+    </div>
+    
+    <!-- Editing mode - Modern, Minimal Design -->
+    <div *ngIf="isEditing()" class="message-editable flex flex-col space-y-2 animate-fade-in" (contextmenu)="onContextMenu($event)">
+      <!-- Editable container with semi-transparent background -->
+      <div 
+        class="edit-container bg-white/30 dark:bg-white/5 rounded-2xl shadow-lg shadow-black/20 ring-1 ring-black/10 dark:ring-white/20 p-3 transition-all duration-300"
+        (contextmenu)="onContextMenu($event)"
+      >
+        <textarea
+          class="edit-area font-sans font-medium text-sm p-3 min-h-[4rem] w-full bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-200 resize-none"
+          [value]="editedText()"
+          (input)="onTextChange($event)"
+          (contextmenu)="onContextMenu($event)"
+        ></textarea>
+        
+        <!-- Action buttons with modern styling -->
+        <div class="action-buttons flex items-center justify-end space-x-2 mt-2 group">
+          <button
+            class="btn-dismiss flex items-center px-4 py-1.5 rounded-lg bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-200 text-xs font-medium transition-all duration-200 hover:scale-105 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-600 focus:outline-none"
+            (click)="dismissEdit()"
+            aria-label="Dismiss changes"
+          >
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Dismiss
+          </button>
+          <button
+            class="btn-apply flex items-center px-4 py-1.5 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-semibold transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 focus:outline-none"
+            (click)="applyEdit()"
+            aria-label="Apply changes"
+          >
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-3 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-sm opacity-75">
+        <span>Tokens: {{ userTokens() }}</span>
+        <span>•</span>
+        <span>{{ model() }}</span>
+      </div>
+      <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button (click)="onRebuildMessage()" class="p-1.5 hover:bg-primary-100 dark:hover:bg-primary-700 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-primary-500" aria-label="Rebuild conversation from here" title="Rebuild conversation from this message">
+          <svg class="w-3.5 h-3.5 text-primary-600 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI Response -->
+<div *ngIf="messageType() === 'ai'" class="flex justify-start pt-4" (contextmenu)="onContextMenu($event)">
+  <div class="max-w-[min(80%,48rem)] bg-neutral-100 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 p-6 rounded-lg shadow-sm group hover:shadow-md transition-shadow duration-200 message-container relative" [class.collapsed]="message().isCollapsed">
+    <!-- Collapse/Expand Button (always visible) -->
+    <button class="absolute top-2 right-2 p-1 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors duration-200" (click)="$event.stopPropagation(); onToggleCollapse()" [title]="message().isCollapsed ? 'Expand message' : 'Collapse message'">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path *ngIf="message().isCollapsed" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        <path *ngIf="!message().isCollapsed" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+    <!-- Collapsed Message Preview -->
+    <div *ngIf="message().isCollapsed" class="cursor-pointer" (click)="onToggleCollapse()">
+      <p class="text-base leading-relaxed flex items-center justify-between">
+        <span class="truncate">{{ getMessagePreview() }}</span>
+        <svg class="w-4 h-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </p>
+    </div>
+    
+    <!-- Message text with selection handling (when not collapsed) -->
+    <div *ngIf="!message().isCollapsed" class="message-text relative" #messageText>
+      <div 
+        class="text-base leading-relaxed select-text cursor-text"
+        (mouseup)="onTextSelection()"
+        (contextmenu)="onContextMenu($event)"
+        [innerHTML]="content() | highlightSpans:explanations()"
+      ></div>
+
+      <!-- Context menu for "Explain more" -->
+      <div 
+        *ngIf="showContextMenu()"
+        class="context-menu fixed z-50 bg-white dark:bg-neutral-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-600 p-2 text-xs animate-fade-in"
+        [style.left.px]="contextMenuPosition().x - 50"
+        [style.top.px]="contextMenuPosition().y"
+        (click)="$event.stopPropagation()"
+        (contextmenu)="onContextMenu($event)"
+      >
+        <button 
+          class="flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-200 transition-colors duration-150 whitespace-nowrap"
+          (click)="startExplain()"
+          aria-label="Explain more about selected text"
+        >
+          <svg class="w-3 h-3 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Explain more
+        </button>
+      </div>
+
+      <!-- Explanation blocks -->
+      <ng-container *ngFor="let block of explanations()">
+        <div 
+          class="explain-block bg-indigo-50 dark:bg-indigo-900 border-l-4 border-indigo-400 rounded-r-lg p-3 my-2 transition-all duration-200 ease-out"
+          [class.collapsed]="block.isCollapsed"
+          (contextmenu)="onContextMenu($event)"
+        >
+          <div class="explain-header flex items-center justify-between">
+            <span class="text-indigo-600 dark:text-indigo-300 text-sm font-medium flex-1 truncate" [title]="'Explanation for: ' + block.promptText">
+              Explanation for "{{ block.promptText.length > 30 ? (block.promptText | slice:0:30) + '...' : block.promptText }}"
+            </span>
+            <div class="flex items-center gap-1 ml-2">
+              <button 
+                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded transition-colors duration-150"
+                (click)="removeExplanation(block.id)"
+                aria-label="Remove explanation"
+                title="Remove explanation"
+              >
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <button 
+                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded transition-colors duration-150"
+                (click)="toggleExplain(block)"
+                [attr.aria-label]="block.isCollapsed ? 'Expand explanation' : 'Collapse explanation'"
+                [title]="block.isCollapsed ? 'Expand explanation' : 'Collapse explanation'"
+              >
+                <svg class="w-3 h-3 transition-transform duration-200" [class.rotate-180]="!block.isCollapsed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div 
+            class="explain-content mt-2 text-sm text-gray-700 dark:text-gray-200 transition-all duration-200 ease-in-out overflow-hidden"
+            [class.max-h-0]="block.isCollapsed"
+            [class.max-h-96]="!block.isCollapsed"
+            *ngIf="!block.isCollapsed"
+          >
+            <ng-container *ngIf="!block.loading; else loadingTpl">
+              <div class="whitespace-pre-wrap">{{ block.content }}</div>
+            </ng-container>
+            <ng-template #loadingTpl>
+              <div class="flex items-center gap-2 text-indigo-500">
+                <svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Generating explanation...</span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mt-4 flex gap-2 opacity-60 group-hover:opacity-100 transition-opacity duration-200">
+      <button class="p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-secondary-500" aria-label="Copy response" title="Copy response">
+        <svg class="w-4 h-4 text-secondary-500 group-hover:text-secondary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      </button>
+
+      <button class="p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-secondary-500" aria-label="Regenerate response" title="Regenerate this response">
+        <svg class="w-4 h-4 text-secondary-500 group-hover:text-secondary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      </button>
+
+      <button (click)="onRebuildMessage()" class="p-2 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors duration-200 group focus:ring-2 focus:ring-offset-1 focus:ring-orange-500" aria-label="Rebuild conversation" title="Rebuild conversation from this point">
+        <svg class="w-4 h-4 text-orange-600 dark:text-orange-400 group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

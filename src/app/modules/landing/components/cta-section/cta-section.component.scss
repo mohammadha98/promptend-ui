@@ -1,0 +1,80 @@
+// Custom styles for the CTA section
+
+// Pulsing animation for the primary CTA button
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+:host ::ng-deep {
+  .cta-primary-button {
+    animation: pulse 2.5s infinite;
+    
+    &:hover {
+      animation: none;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Floating animation for browser icons
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+:host ::ng-deep {
+  .h-16 {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  // Apply floating animation to each browser icon with different delays
+  .h-16:nth-child(1) {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  .h-16:nth-child(2) {
+    animation: float 4s ease-in-out 1s infinite;
+  }
+  
+  .h-16:nth-child(3) {
+    animation: float 4s ease-in-out 2s infinite;
+  }
+}
+
+// Wave animation for the bottom wave
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+:host ::ng-deep {
+  svg.w-full {
+    animation: wave 10s ease-in-out infinite;
+  }
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM Optimization Platform</title>
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    @layer utilities {
+      .bg-neutral-dark {
+        background-color: #1e1e2f;
+      }
+
+      .bg-neutral-light {
+        background-color: #2b2b3d;
+      }
+
+      .text-neutral-muted {
+        color: #b0b0c3;
+      }
+
+      .chat-height-mobile {
+        height: calc(100vh - 12rem);
+      }
+
+      @media (min-width: 1024px) {
+        .chat-height-desktop {
+          height: calc(100vh - 4rem);
+        }
+      }
+    }
+
+    @layer utilities {
+      .flex-stable {
+        flex: 0 0 auto;
+        min-width: 0;
+        min-height: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-dark text-gray-100 h-screen flex flex-col lg:flex-row p-4 lg:p-0">
+
+
+  <!-- Chat History Sidebar -->
+  <div
+    class="w-full lg:w-64 xl:w-72 bg-neutral-light rounded-sm border border-gray-700 flex flex-col order-1 lg:order-1 z-10 shadow-sm shadow-gray-300/20">
+    <div class="p-4 border-b border-gray-700">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        Chat History
+      </h2>
+    </div>
+
+    <!-- Enhanced Conversation Flow Item -->
+    <div class="group relative p-3 hover:bg-gray-700 rounded-lg transition-colors" x-data="{ isOpen: false }"
+      @click.away="isOpen = false" @mouseenter="isOpen = true" @mouseleave="isOpen = false">
+      <div class="flex items-center justify-between cursor-pointer" @click="isOpen = !isOpen">
+        <div class="flex-1 truncate">
+          <span class="text-sm">Main Conversation Flow</span>
+          <div class="flex items-center gap-1 mt-1">
+            <span class="text-xs px-1.5 py-0.5 bg-gray-800 rounded-md">3 branches</span>
+            <span class="text-xs text-green-400">Active</span>
+          </div>
+        </div>
+        <button aria-label="Toggle branch visibility" class="transform transition-transform duration-200"
+          :class="{ 'rotate-180': isOpen }">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Nested Branches with Animation -->
+      <div class="ml-4 mt-2 space-y-1 overflow-hidden transition-all duration-300"
+        :class="isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'">
+        <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors
+                   border-l-2 border-blue-500 hover:border-blue-400">
+          <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
+          Technical Clarifications
+          <span class="ml-auto text-xs text-gray-400">2h ago</span>
+        </div>
+        <div class="flex items-center p-2 text-sm hover:bg-gray-800 rounded-md cursor-pointer transition-colors
+                   border-l-2 border-purple-500 hover:border-purple-400">
+          <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+          Creative Variations
+          <span class="ml-auto text-xs text-gray-400">1h ago</span>
+        </div>
+        <button class="w-full p-2 text-sm text-gray-400 hover:text-white flex items-center
+                      transition-colors hover:bg-gray-800 rounded-md">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+          New Branch
+        </button>
+      </div>
+    </div>
+
+    <!-- Rest of chat history items -->
+    <div class="flex-1 overflow-y-auto p-2 space-y-1">
+      <!-- Existing history items remain unchanged -->
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <main
+    class="flex-1 flex flex-col min-w-0 bg-neutral-light rounded-sm border border-gray-700 z-20 shadow-md shadow-gray-400/10 order-2 lg:order-2">
+    <header class="p-4 border-b border-gray-700 flex items-center justify-between">
+      <h1 class="text-lg font-semibold">Current Session</h1>
+      <div class="flex items-center gap-3">
+        <button class="px-3 py-1 bg-gray-800 rounded-md text-sm hover:bg-gray-700 transition-colors">
+          Save State
+        </button>
+        <button class="px-3 py-1 bg-gray-800 rounded-md text-sm hover:bg-gray-700 transition-colors">
+          Export
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 chat-height-mobile lg:chat-height-desktop overflow-y-auto p-4 space-y-4">
+      <!-- User Message -->
+      <div class="flex justify-end">
+        <div class="max-w-[min(80%,48rem)] bg-blue-600 text-white p-4 rounded-2xl rounded-br-none shadow-md">
+          <p class="text-sm">I need to optimize this prompt for better technical accuracy...</p>
+          <div class="mt-2 flex items-center gap-2 text-xs opacity-75">
+            <span>Tokens: 42</span>
+            <span>•</span>
+            <span>GPT-4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Response -->
+      <div class="flex justify-start">
+        <div class="max-w-[min(80%,48rem)] bg-gray-700 p-4 rounded-2xl rounded-bl-none shadow-md">
+          <p class="text-sm">Here's an optimized version with technical enhancements...</p>
+          <div class="mt-3 flex gap-2">
+            <button class="p-1.5 hover:bg-gray-600 rounded-md transition-colors group" aria-label="Copy response">
+              <svg class="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+
+            <button class="p-1.5 hover:bg-gray-600 rounded-md transition-colors group" aria-label="Regenerate response">
+              <svg class="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+    <!-- Input Section -->
+    <div class="border-t border-gray-700 p-4">
+      <form class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <textarea placeholder="Type your message..." class="w-full p-3 pr-16 bg-gray-800 rounded-xl border border-gray-700 resize-none
+               focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm scrollbar-hide
+               transition-all duration-200 max-h-48 overflow-y-auto"></textarea>
+
+          <div class="absolute right-3 bottom-3 flex items-center gap-2">
+            <button type="button" class="text-gray-400 hover:text-white transition-colors" title="Toggle expanded view">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path x-show="!isExpanded" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                <path x-show="isExpanded" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <kbd class="px-2 py-1 bg-gray-700 rounded-md text-xs hidden sm:inline-block">⌘ + Enter</kbd>
+          </div>
+        </div>
+        <button type="submit" class="p-3 bg-blue-600 rounded-xl hover:bg-blue-700 active:scale-95 transition-all
+             flex items-center justify-center shadow-lg hover:shadow-blue-500/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+        </button>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- Toolbox Sidebar -->
+  <div
+    class="w-full lg:w-64 xl:w-72 bg-neutral-light rounded-sm z-20 shadow-sm shadow-gray-300/20 border border-gray-700 flex flex-col order-3 relative">
+
+    <button class="absolute -left-4 top-80 z-10 p-1.5 bg-gray-800/50 rounded-full shadow-xs 
+             hover:bg-gray-800 transition-colors group
+             backdrop-blur-xs" title="Toggle sidebar">
+      <svg class="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+
+    <div class="space-y-4">
+
+      <div class="group px-1 pt-1" data-state="open">
+        <div class="p-4 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
+          aria-expanded="true" aria-controls="model-section">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold">AI Model</h3>
+            <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+          </div>
+        </div>
+        <div id="model-section" class=" pb-4 pt-2 space-y-2" data-state="open">
+          <!-- Model Selection Section -->
+          <div class="p-4 bg-gray-800 rounded-xl">
+
+
+            <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+              aria-label="ChatGPT model">
+              <input type="radio" name="llm-model" class="form-radio" checked>
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span class="text-sm">ChatGPT-4o</span>
+              <span class="ml-auto text-xs px-1.5 py-0.5 bg-green-500 rounded-md">Active</span>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+              aria-label="Claude model">
+              <input type="radio" name="llm-model" class="form-radio">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-sm">Claude 3.5</span>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer"
+              aria-label="Gemini model">
+              <input type="radio" name="llm-model" class="form-radio">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h-6m6 0l-3-3m3 3l-3 3" />
+              </svg>
+              <span class="text-sm">Gemini Pro</span>
+              <span class="ml-auto text-xs px-1.5 py-0.5 bg-yellow-500 rounded-md">Beta</span>
+            </label>
+
+            <button class="w-full mt-2 p-2 text-sm rounded-md transition-all duration-300 
+              bg-gradient-to-r from-gray-700 to-gray-800
+              hover:from-gray-600 hover:to-gray-700 
+              hover:shadow-lg hover:shadow-gray-500/10
+              active:scale-95 flex items-center justify-center gap-2" aria-label="Add custom model">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+              Custom Model...
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Rebuild Modes Section -->
+      <div class="group px-1" data-state="open">
+        <div class="p-4 bg-gray-800 rounded-t-xl cursor-pointer hover:bg-gray-750 transition-colors" role="button"
+          aria-expanded="true" aria-controls="rebuild-section">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold">Rebuild Modes</h3>
+            <svg class="w-4 h-4 text-gray-400 transform transition-transform group-data-[state=open]:rotate-180"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+          </div>
+        </div>
+        <div class="p-4 bg-gray-800 rounded-b-xl">
+
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio" checked>
+            <span class="text-sm">Manual Edit</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio">
+            <span class="text-sm">Auto-Optimize</span>
+            <span class="text-xs px-1.5 py-0.5 bg-blue-500 rounded-md">Beta</span>
+          </label>
+          <label class="flex items-center gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer">
+            <input type="radio" name="rebuild-mode" class="form-radio">
+            <span class="text-sm">Branch Preview</span>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="group px-1">
+
+        <div class="p-4 bg-gray-800 rounded-xl">
+          <h3 class="text-sm font-semibold mb-2">Optimization Settings</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-sm">Aggressiveness</span>
+              <select class="bg-gray-700 rounded-md text-sm p-1">
+                <option>Conservative</option>
+                <option>Balanced</option>
+                <option>Aggressive</option>
+              </select>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm">Preserve Intent</span>
+              <input type="checkbox" class="form-checkbox rounded bg-gray-700">
+            </div>
+            <button class="w-full p-2 text-white text-sm rounded-md transition-all duration-300 
+      bg-gradient-to-r from-green-500 to-blue-600 
+      hover:from-green-600 hover:to-blue-700 
+      hover:shadow-lg hover:shadow-green-500/20
+      active:scale-95">
+              Apply Optimization to Entire Thread
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+
+</body>
+
+</html>

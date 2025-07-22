@@ -1,0 +1,174 @@
+<section class="py-20 bg-white dark:bg-neutral-800">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+        Powerful Features for Enhanced AI Conversations
+      </h2>
+      <p class="text-xl text-neutral-600 dark:text-neutral-300">
+        Prompt-End transforms how you interact with AI chat interfaces through these innovative features
+      </p>
+    </div>
+    
+    <!-- Features grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (feature of features; track feature.title) {
+        <div class="feature-card bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-neutral-200 dark:border-neutral-700">
+          <!-- Feature icon -->
+          <div class="feature-icon-wrapper mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="feature.icon" />
+            </svg>
+          </div>
+          
+          <!-- Feature title -->
+          <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+            {{ feature.title }}
+          </h3>
+          
+          <!-- Feature description -->
+          <p class="text-neutral-600 dark:text-neutral-400">
+            {{ feature.description }}
+          </p>
+        </div>
+      }
+    </div>
+    
+    <!-- Feature showcase -->
+    <div class="mt-20 bg-neutral-100 dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Feature showcase content -->
+        <div class="p-8 lg:p-12 flex flex-col justify-center">
+          <h3 class="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+            See Prompt-End in Action
+          </h3>
+          <p class="text-neutral-600 dark:text-neutral-300 mb-6">
+            Watch how Prompt-End transforms your AI chat experience with powerful conversation management tools.
+          </p>
+          
+          <!-- Feature highlights -->
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-neutral-700 dark:text-neutral-300">Pause AI responses mid-generation to interject with clarifications</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-neutral-700 dark:text-neutral-300">Create multiple conversation branches from a single starting point</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-neutral-700 dark:text-neutral-300">Collapse lengthy responses to focus on what matters most</span>
+            </li>
+          </ul>
+          
+          <!-- CTA button -->
+          <div class="mt-8">
+            <a href="#install" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors duration-200">
+              Try It Now
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Feature showcase image/animation -->
+        <div class="relative lg:p-6 flex items-center justify-center bg-neutral-200 dark:bg-neutral-800">
+          <!-- Browser window mockup with feature demonstration -->
+          <div class="relative w-full max-w-md rounded-lg overflow-hidden shadow-2xl">
+            <!-- Browser chrome -->
+            <div class="bg-neutral-800 text-white p-3 flex items-center">
+              <div class="flex space-x-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div class="mx-auto text-sm font-medium">Branching Conversations</div>
+            </div>
+            
+            <!-- Feature demonstration -->
+            <div class="bg-white dark:bg-neutral-900 p-4">
+              <!-- Conversation tree visualization -->
+              <div class="flex flex-col space-y-4">
+                <!-- Root message -->
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 h-8 w-8 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-300 text-xs">U</div>
+                  <div class="ml-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-3 max-w-xs">
+                    <p class="text-sm">How can I improve my Python code?</p>
+                  </div>
+                </div>
+                
+                <!-- AI response -->
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 h-8 w-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 text-xs">AI</div>
+                  <div class="ml-3 bg-primary-50 dark:bg-neutral-800 border border-primary-100 dark:border-primary-900 rounded-lg p-3 max-w-xs">
+                    <p class="text-sm">Here are some ways to improve your Python code:</p>
+                    <ol class="text-xs mt-2 pl-4 list-decimal">
+                      <li>Use consistent naming conventions</li>
+                      <li>Write docstrings for functions</li>
+                      <li>Implement error handling</li>
+                    </ol>
+                  </div>
+                </div>
+                
+                <!-- Branch visualization -->
+                <div class="grid grid-cols-2 gap-4">
+                  <!-- Branch 1 -->
+                  <div class="border-t-2 border-l-2 border-primary-200 dark:border-primary-800 pt-4 pl-4 rounded-tl-lg">
+                    <div class="flex items-start">
+                      <div class="flex-shrink-0 h-6 w-6 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-300 text-xs">U</div>
+                      <div class="ml-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2 max-w-xs">
+                        <p class="text-xs">Tell me more about error handling</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Branch 2 -->
+                  <div class="border-t-2 border-r-2 border-yellow-200 dark:border-yellow-800 pt-4 pr-4 rounded-tr-lg">
+                    <div class="flex items-start">
+                      <div class="flex-shrink-0 h-6 w-6 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center text-neutral-500 dark:text-neutral-300 text-xs">U</div>
+                      <div class="ml-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-2 max-w-xs">
+                        <p class="text-xs">Show me docstring examples</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Branch controls -->
+                <div class="flex justify-center space-x-4 p-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg text-xs">
+                  <button class="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors duration-200">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      Branch 1
+                    </span>
+                  </button>
+                  <button class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded hover:bg-yellow-200 dark:hover:bg-yellow-800 transition-colors duration-200">
+                    <span class="flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      Branch 2
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Decorative elements -->
+          <div class="absolute -z-10 -bottom-6 -right-6 w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-xl"></div>
+          <div class="absolute -z-10 -top-6 -left-6 w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-xl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

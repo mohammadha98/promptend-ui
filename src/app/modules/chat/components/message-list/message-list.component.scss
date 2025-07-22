@@ -1,0 +1,29 @@
+// Styling for the collapse/expand all button
+button[title*="Collapse all"], button[title*="Expand all"] {
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  svg {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  &:hover svg {
+    transform: scale(1.1);
+  }
+}
+
+// Add some spacing between messages
+:host ::ng-deep app-message {
+  display: block;
+  margin-bottom: 0.5rem;
+}

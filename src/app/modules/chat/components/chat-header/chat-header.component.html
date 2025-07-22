@@ -1,0 +1,41 @@
+<header class="flex items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-md">
+    <h1 class="text-xl font-semibold text-neutral-800 dark:text-neutral-200">Current Session</h1>
+    <div class="flex items-center gap-4">
+        <button class="btn-secondary">
+            Save State
+        </button>
+        <button class="btn-primary">
+            Export
+        </button>
+        
+        <!-- Navigate Mode Button -->
+        <button 
+            (click)="onToggleNavigateMode()" 
+            [attr.aria-label]="isNavigateModeActive() ? 'Exit Navigate Mode' : 'Enter Navigate Mode'"
+            class="rounded-lg p-2 transition-colors duration-200 ease-in-out shadow-sm flex items-center justify-center focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            [ngClass]="{
+                'bg-primary-100 hover:bg-primary-200 dark:bg-primary-900 dark:hover:bg-primary-800': !isNavigateModeActive(),
+                'bg-primary-500 hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700 text-white': isNavigateModeActive()
+            }">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span class="ml-2 text-sm font-medium hidden sm:inline">{{ isNavigateModeActive() ? 'Exit Navigate' : 'Navigate' }}</span>
+        </button>
+      
+        <button 
+            (click)="themeService.toggleTheme()" 
+            [attr.aria-label]="themeService.isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+            class="rounded-lg p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out shadow-sm flex items-center justify-center focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            [ngClass]="{'dark:bg-neutral-800': themeService.isDarkMode}">
+            <ui-icon [name]="themeService.isDarkMode ? 'moon' : 'sun'" size="5"></ui-icon>
+        </button>
+        
+        <button (click)="onToggleSidebar()" class="rounded-lg p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200 ease-in-out shadow-sm flex items-center justify-center focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500">
+            <svg class="w-5 h-5 text-secondary-500 transition-transform duration-150" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" [ngClass]="{'rotate-180': !isSidebarVisible}">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+    </div>
+</header>

@@ -1,0 +1,159 @@
+.branch-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  max-height: 60px;
+  overflow: hidden;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  &.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+  }
+  
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    display: inline-block;
+  }
+}
+
+.branch-color-green {
+  border-left: 2px solid #10b981;
+}
+
+.branch-color-blue {
+  border-left: 2px solid #3b82f6;
+}
+
+.branch-color-purple {
+  border-left: 2px solid #8b5cf6;
+}
+
+.branch-color-orange {
+  border-left: 2px solid #f59e0b;
+}
+
+.branch-color-red {
+  border-left: 2px solid #ef4444;
+}
+
+.branch-color-pink {
+  border-left: 2px solid #ec4899;
+}
+
+.branch-color-indigo {
+  border-left: 2px solid #6366f1;
+}
+
+.branch-color-teal {
+  border-left: 2px solid #14b8a6;
+}
+
+.new-branch-btn {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #10b981;
+  }
+}
+
+.chat-header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 4px;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200, 200, 200, 0.3), transparent);
+  }
+}
+
+.new-conversation-btn {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.error-message {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  padding: 12px;
+  margin: 8px 0;
+  color: #fca5a5;
+  font-size: 14px;
+}
+
+.retry-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #dc2626;
+  }
+}
+
+.active-indicator {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 10px;
+  margin-right: 4px;
+  padding: 1px 3px;
+  border-radius: 2px;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* Fix for card layout */
+.card {
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+/* Fix for branch items container */
+.ml-6 {
+  margin-left: 1rem !important;
+}
+
+/* Fix for branch details */
+.flex-1 {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Fix for timestamp display */
+.text-xs {
+  font-size: 0.65rem !important;
+  line-height: 1rem !important;
+}
+
+/* Fix for branch name display */
+.text-sm {
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+}
