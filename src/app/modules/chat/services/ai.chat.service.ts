@@ -452,4 +452,27 @@ export class AIChatService {
             parentId: chatId
         });
     }
+
+    /**
+     * Generate an explanation for a selected text in a message
+     * @param msgId The ID of the message containing the text
+     * @param promptText The selected text to explain
+     * @returns Observable of the explanation text
+     */
+    explainText(msgId: string, promptText: string): Observable<string> {
+        // Create a prompt for the LLM to explain the selected text
+        const explainPrompt = `Please provide a more detailed explanation of the following text:\n\n"${promptText}"\n\nExplain in a clear and concise way, providing additional context or examples if helpful.`;
+        
+        // Use the chat model directly for a one-off explanation
+        return from(this.chatModel.invoke([new HumanMessage(explainPrompt)])).pipe(
+            map(response => {
+                // Extract the content from the AI message
+                return response.content.toString();
+            }),
+            catchError(error => {
+                console.error('Error generating explanation:', error);
+                return throwError(() => new Error(`Failed to generate explanation: ${error.message}`));
+            })
+        );
+    }
 }

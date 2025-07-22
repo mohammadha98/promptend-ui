@@ -8,7 +8,10 @@
   <section class="flex-1 flex flex-col bg-white dark:bg-neutral-900 overflow-hidden">
     <!-- Header -->
     <header class="flex-shrink-0 h-16 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 shadow-sm z-10">
-      <app-chat-header (toggleSidebar)="toggleSidebar($event)"></app-chat-header>
+      <app-chat-header 
+        (toggleSidebar)="toggleSidebar($event)"
+        (toggleNavigateMode)="handleNavigateModeToggle($event)">
+      </app-chat-header>
     </header>
 
     <!-- Chat Messages -->
@@ -24,7 +27,10 @@
 
   <!-- Right Sidebar -->
   <aside class="w-72 flex-shrink-0 bg-neutral-50 dark:bg-neutral-800 overflow-y-auto border-l border-neutral-200 dark:border-neutral-700">
-    <chat-sidebar></chat-sidebar>
+    <chat-sidebar 
+      [conversationId]="conversId" 
+      (rebuildRequested)="handleRebuildConversation($event)">
+    </chat-sidebar>
   </aside>
 </div>
 

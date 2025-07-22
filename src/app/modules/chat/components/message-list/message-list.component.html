@@ -1,4 +1,19 @@
 
+<!-- Collapse/Expand All Button -->
+<div class="flex justify-end mb-4" *ngIf="messages.length > 1">
+    <button 
+        class="flex items-center px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-lg text-sm font-medium transition-colors duration-200"
+        (click)="toggleAllMessages()"
+        [title]="areAllMessagesCollapsed() ? 'Expand all messages' : 'Collapse all messages'"
+    >
+        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path *ngIf="areAllMessagesCollapsed()" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path *ngIf="!areAllMessagesCollapsed()" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+        {{ areAllMessagesCollapsed() ? 'Expand All' : 'Collapse All' }}
+    </button>
+</div>
+
 @for(message of messages;track $index){
     <app-message 
     [messageType]="message.messageType"
@@ -7,6 +22,8 @@
     [model]="message.model"
     [messageId]="getMessageId(message, $index)"
     [conversationId]="conversationId"
+    [isNavigateModeActive]="isNavigateModeActive()"
+    (toggleCollapse)="onMessageToggleCollapse($event)"
        >
     </app-message>
     }

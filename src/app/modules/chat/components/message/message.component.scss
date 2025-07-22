@@ -1,0 +1,276 @@
+// Modern animations with smooth transitions
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseHighlight {
+  0% { background-color: rgba(236, 201, 75, 0.2); }
+  50% { background-color: rgba(236, 201, 75, 0.4); }
+  100% { background-color: rgba(236, 201, 75, 0.2); }
+}
+
+// Apply animations to elements
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Styling for collapsed messages
+.message-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.collapsed {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    opacity: 0.85;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Styling for collapse/expand buttons
+button[title*="Collapse"], button[title*="Expand"] {
+  opacity: 0.5;
+  transition: all 0.2s ease-in-out;
+  z-index: 10;
+  
+  &:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+// Modern styling for the editable container
+.edit-container {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform-origin: center top;
+  animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Ensure the editable area maintains consistent height and modern styling
+.message-editable {
+  min-height: 4rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Style for the contenteditable area with improved UX
+.edit-area {
+  white-space: pre-wrap;
+  word-break: break-word;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) inset;
+}
+
+// Ensure the message container doesn't shift during editing
+.message-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.collapsed {
+    max-height: 60px;
+    overflow: hidden;
+  }
+}
+
+// Collapse button styling
+.collapse-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.message-container:hover .collapse-btn {
+  opacity: 1;
+}
+
+// Highlight animation for changed text
+span.bg-yellow-200, span.bg-yellow-700 {
+  transition: background-color 0.3s ease-in-out;
+  animation: pulseHighlight 2s ease-in-out 1;
+}
+
+// Styles for Explain More feature
+.context-menu {
+  min-width: 120px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  button {
+    min-height: 32px; // Touch-friendly height
+    font-weight: 500;
+  }
+}
+
+// Explanation blocks styling
+.explain-block {
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  &.collapsed {
+    .explain-content {
+      max-height: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+    }
+  }
+  
+  .explain-header {
+    cursor: pointer;
+    
+    &:hover {
+      .text-indigo-600 {
+        color: rgb(79 70 229); // indigo-700
+      }
+      
+      .dark .text-indigo-300 {
+        color: rgb(165 180 252); // indigo-400
+      }
+    }
+  }
+  
+  .explain-content {
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(156, 163, 175, 0.5);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(156, 163, 175, 0.7);
+    }
+  }
+}
+
+// Highlighted text styling
+.message-text {
+  mark {
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: rgba(251, 191, 36, 0.4) !important; // yellow-400 with opacity
+      transform: scale(1.02);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    &[data-explain-id] {
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+          rgba(99, 102, 241, 0.6), 
+          rgba(139, 92, 246, 0.6)
+        );
+        border-radius: 1px;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+      
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Loading spinner animation
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+// Responsive adjustments for mobile
+@media (max-width: 640px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .edit-container {
+    padding: 0.75rem;
+  }
+  
+  .edit-area {
+    padding: 0.75rem;
+    min-height: 3.5rem;
+  }
+  
+  .context-menu {
+    min-width: 140px;
+    
+    button {
+      min-height: 40px; // Larger touch target on mobile
+      padding: 0.75rem 1rem;
+    }
+  }
+  
+  .explain-block {
+    margin: 0.75rem 0;
+    
+    .explain-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      
+      .flex {
+        align-self: flex-end;
+      }
+    }
+  }
+}

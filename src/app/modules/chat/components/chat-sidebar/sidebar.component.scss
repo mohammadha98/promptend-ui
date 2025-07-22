@@ -1,0 +1,52 @@
+.card {
+  @apply bg-white dark:bg-neutral-800 rounded shadow-sm;
+}
+
+.special-button {
+  @apply bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors duration-200;
+}
+
+// Reduced element sizes
+:host {
+  .card {
+    @apply rounded;
+  }
+  
+  h3 {
+    @apply text-sm leading-tight;
+  }
+  
+  // Improved text handling
+  span {
+    @apply truncate max-w-full;
+  }
+  
+  // Layout adjustments
+  .flex {
+    @apply gap-1;
+  }
+  
+  // Visual enhancements
+  svg {
+    @apply flex-shrink-0;
+  }
+  
+  input[type="radio"], 
+  input[type="checkbox"] {
+    @apply flex-shrink-0;
+  }
+  
+  // Ensure proper spacing in model selection items
+  label {
+    @apply flex items-center;
+    
+    span {
+      @apply truncate;
+    }
+  }
+  
+  // Ensure sliders have proper sizing
+  input[type="range"] {
+    @apply h-1.5 rounded;
+  }
+}

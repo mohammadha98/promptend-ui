@@ -1,0 +1,66 @@
+// Custom styles for the footer section
+
+// Social icon hover effect
+:host ::ng-deep {
+  .social-icon {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Footer link hover underline effect
+:host ::ng-deep {
+  a:not(.social-icon) {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: currentColor;
+      transition: width 0.3s ease;
+    }
+    
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+// Subtle fade-in animation for the footer
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+:host {
+  animation: fadeIn 1s ease-in-out;
+}
+
+// Newsletter input focus effect
+:host ::ng-deep {
+  input:focus {
+    border-color: transparent;
+  }
+}
+
+// Button hover effect
+:host ::ng-deep {
+  button {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}

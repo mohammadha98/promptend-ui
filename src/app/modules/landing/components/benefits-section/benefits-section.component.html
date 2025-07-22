@@ -1,0 +1,103 @@
+<section class="py-20 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
+        Why Choose Prompt-End?
+      </h2>
+      <p class="text-xl text-neutral-600 dark:text-neutral-300">
+        Experience these transformative benefits when you enhance your AI chat interface with Prompt-End
+      </p>
+    </div>
+    
+    <!-- Benefits grid with alternating layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Benefits list -->
+      <div class="space-y-8">
+        @for (benefit of benefits; track benefit.title) {
+          <div class="benefit-card flex items-start space-x-4 p-4 rounded-lg transition-all duration-300 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md">
+            <!-- Benefit icon -->
+            <div class="benefit-icon-wrapper flex-shrink-0 inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="benefit.icon" />
+              </svg>
+            </div>
+            
+            <!-- Benefit content -->
+            <div>
+              <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
+                {{ benefit.title }}
+              </h3>
+              <p class="text-neutral-600 dark:text-neutral-400">
+                {{ benefit.description }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+      
+      <!-- Benefits illustration -->
+      <div class="relative">
+        <div class="relative rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-neutral-900 p-6">
+          <!-- Productivity visualization -->
+          <div class="mb-8">
+            <h4 class="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Productivity Metrics
+            </h4>
+            
+            <!-- Productivity chart -->
+            <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg">
+              <div class="flex justify-between items-end h-40">
+                <!-- Before bar -->
+                <div class="w-24 flex flex-col items-center">
+                  <div class="h-20 w-16 bg-neutral-300 dark:bg-neutral-700 rounded-t-lg relative overflow-hidden">
+                    <div class="absolute bottom-0 w-full h-full bg-neutral-400 dark:bg-neutral-600"></div>
+                  </div>
+                  <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Without Prompt-End</div>
+                </div>
+                
+                <!-- After bar -->
+                <div class="w-24 flex flex-col items-center">
+                  <div class="h-40 w-16 bg-neutral-300 dark:bg-neutral-700 rounded-t-lg relative overflow-hidden">
+                    <div class="absolute bottom-0 w-full h-full bg-primary-500 dark:bg-primary-600 animate-grow"></div>
+                  </div>
+                  <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">With Prompt-End</div>
+                </div>
+              </div>
+              
+              <div class="mt-4 text-center text-sm text-neutral-500 dark:text-neutral-400">
+                Up to 2x productivity improvement in AI interactions
+              </div>
+            </div>
+          </div>
+          
+          <!-- User testimonial -->
+          <div class="bg-neutral-50 dark:bg-neutral-800 p-4 rounded-lg">
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div>
+                <div class="text-sm text-neutral-600 dark:text-neutral-400 italic">
+                  "Prompt-End has completely transformed how I work with AI. The ability to branch conversations and organize my thoughts has made me significantly more productive."
+                </div>
+                <div class="mt-2 text-sm font-medium text-neutral-900 dark:text-white">
+                  - Sarah K., Data Scientist
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute -z-10 -bottom-6 -left-6 w-32 h-32 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-xl"></div>
+        <div class="absolute -z-10 -top-6 -right-6 w-32 h-32 bg-primary-200 dark:bg-primary-800 rounded-full opacity-50 blur-xl"></div>
+      </div>
+    </div>
+  </div>
+</section>

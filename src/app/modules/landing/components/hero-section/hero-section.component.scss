@@ -1,0 +1,38 @@
+// Custom animations for the hero section
+
+// Floating animation for the hero image
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+// Apply the floating animation to the hero image container
+:host ::ng-deep {
+  .relative > .rounded-xl {
+    animation: float 6s ease-in-out infinite;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+// Gradient text effect for the hero title
+:host ::ng-deep {
+  h1 .text-primary-600 {
+    background: linear-gradient(90deg, #2dd4bf 0%, #0ea5e9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline;
+  }
+}
